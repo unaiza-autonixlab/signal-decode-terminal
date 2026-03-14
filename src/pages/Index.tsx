@@ -10,15 +10,15 @@ const Index = () => {
         <TerminalWindow>
           <div className="space-y-4">
             <div className="flex items-center text-sm">
-              <span className="text-terminal-green">autonixlab:~$</span>
-              <span className="ml-2">cat /var/log/signals/content-scale-system.log</span>
+              <span className="text-terminal-green">unaiza:~$</span>
+              <span className="ml-2">cat /var/log/signals/post-malone.log</span>
             </div>
             <div className="pt-4">
               <div className="text-muted-foreground">------- SIGNAL DECODED -------</div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4 text-sm">
                 <div><span className="text-muted-foreground">SIGNAL_ID:</span> <span>sig_003</span></div>
                 <div><span className="text-muted-foreground">CLIENT:</span> <span>Anonymous // Dubai Marketing Agency</span></div>
-                <div><span className="text-muted-foreground">SYSTEM_DEPLOYED:</span> <span>content-scale-system</span></div>
+                <div><span className="text-muted-foreground">SYSTEM_DEPLOYED:</span> <span>Post Malone</span></div>
               </div>
             </div>
             <div className="pt-6">
@@ -73,8 +73,8 @@ const Index = () => {
       <section className="max-w-5xl mx-auto py-20 px-6 border-t border-border">
         <div className="terminal-window rounded-lg overflow-hidden p-8">
           <div className="mb-8">
-            <h2 className="text-xl font-bold mb-1">&gt; SYSTEM_DEPLOYED: PostMalone</h2>
-            <p className="text-muted-foreground text-sm">Content Scale System — live in 7 days</p>
+            <h2 className="text-xl font-bold mb-1">&gt; SYSTEM_DEPLOYED: Post Malone</h2>
+            <p className="text-muted-foreground text-sm">Post Malone — live in 7 days</p>
           </div>
           <TypingAnimation />
           <div className="mt-12 pt-12 border-t border-border">
@@ -142,7 +142,7 @@ const Index = () => {
           </div>
           <div className="border-l-2 border-primary pl-6 py-2 my-8">
             <blockquote className="text-xl italic leading-relaxed">
-              "The bottleneck wasn't our creativity, it was the friction of execution. Autonixlab didn't just give us a tool; they gave us our time back. Scaling is now a choice, not a hiring headache."
+              "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
           </div>
           <div className="space-y-2 text-xs text-muted-foreground">
@@ -157,28 +157,27 @@ const Index = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Your agency runs the same playbook.</h2>
         <p className="text-muted-foreground mb-12">We've already built the fix.</p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-          <a href="#" className="bg-primary text-primary-foreground px-8 py-4 font-bold hover:bg-foreground transition-colors w-full md:w-auto text-center">
+          <a href="https://calendly.com/unaiza-autonixlab" target="_blank" rel="noopener noreferrer" className="bg-primary text-primary-foreground px-8 py-4 font-bold hover:bg-foreground transition-colors w-full md:w-auto text-center">
             $ ./book-call
           </a>
-          <a href="#" className="border border-primary text-primary px-8 py-4 font-bold hover:bg-primary hover:text-primary-foreground transition-all w-full md:w-auto text-center">
-            $ ./view-systems
+          <a href="mailto:unaiza@autonixlab.com" className="border border-primary text-primary px-8 py-4 font-bold hover:bg-primary hover:text-primary-foreground transition-all w-full md:w-auto text-center">
+            $ ./contact-unaiza
           </a>
         </div>
         <div className="text-[10px] text-terminal-green">
-          autonixlab:~$ system capacity: 2 slots remaining this month
+          unaiza:~$ system capacity: 2 slots remaining this month
         </div>
       </section>
 
       {/* FOOTER */}
       <footer className="max-w-5xl mx-auto py-12 px-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
         <div>
-          <div className="text-primary font-bold mb-2">AUTONIXLAB</div>
+          <div className="text-primary font-bold mb-2">UNAIZA × POST MALONE</div>
           <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
         </div>
         <div className="flex gap-6 text-[10px] uppercase tracking-widest text-muted-foreground">
-          <a href="#" className="hover:text-foreground transition-colors">Systems</a>
-          <a href="#" className="hover:text-foreground transition-colors">Signals</a>
-          <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+          <a href="mailto:unaiza@autonixlab.com" className="hover:text-foreground transition-colors">Contact</a>
+          <a href="https://calendly.com/unaiza-autonixlab" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Book a Call</a>
         </div>
       </footer>
     </div>
