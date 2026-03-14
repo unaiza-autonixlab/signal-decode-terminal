@@ -161,7 +161,7 @@ const Index = () => {
             <div>SOURCE: Kate H. // Owner, Dubai Marketing Agency</div>
             <div className="text-primary">IMPACT: CONTENT_OPS -98%</div>
           </div>
-          <div className="border-l-2 border-primary pl-6 py-2 my-8">
+          <div className="border-l-2 border-primary pl-6 py-2 my-6">
             <blockquote className="text-xl italic leading-relaxed">
               "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
