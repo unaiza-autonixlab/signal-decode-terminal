@@ -185,14 +185,14 @@ const Index = () => {
             <div className="text-primary font-bold mb-2">UNAIZA × POST MALONE</div>
             <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 text-[10px] text-muted-foreground">
-            <a href="mailto:unaiza@autonixlab.com" className="hover:text-primary transition-colors">
+          <div className="flex flex-col sm:flex-row gap-6 text-xs text-muted-foreground">
+            <a href="mailto:unaiza@autonixlab.com" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
               $ ./contact -- unaiza@autonixlab.com
             </a>
-            <a href="https://www.linkedin.com/in/unaiza-masood/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <a href="https://www.linkedin.com/in/unaiza-masood/" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
               $ ./connect -- linkedin.com/in/unaiza-masood
             </a>
-            <a href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <a href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
               $ ./book-call
             </a>
           </div>
