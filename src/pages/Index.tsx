@@ -78,7 +78,7 @@ const Index = () => {
             <p className="text-muted-foreground text-sm">Post Malone — live in 7 days</p>
           </div>
           <TypingAnimation />
-          <div className="mt-12 pt-12 border-t border-border">
+          <div className="mt-8 pt-8 border-t border-border">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {["/telegram", "/generate", "/approve", "/slides.output"].map((step, i) => (
                 <div key={step} className="flex items-center gap-4">
