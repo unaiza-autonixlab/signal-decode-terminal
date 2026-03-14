@@ -211,12 +211,8 @@ const Index = () => {
             <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted-foreground">
-            <a href="mailto:unaiza@autonixlab.com" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./contact -- unaiza@autonixlab.com
-            </a>
-            <a href="https://www.linkedin.com/in/unaiza-masood/" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./connect -- linkedin.com/in/unaiza-masood
-            </a>
+            <span className="py-1">$ ./contact -- unaiza@autonixlab.com</span>
+            <span className="py-1">$ ./connect -- linkedin.com/in/unaiza-masood</span>
             <a href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
               $ ./book-call
             </a>
