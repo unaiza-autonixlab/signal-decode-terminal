@@ -19,6 +19,7 @@ const Index = () => {
                 <div><span className="text-muted-foreground">SIGNAL_ID:</span> <span>sig_003</span></div>
                 <div><span className="text-muted-foreground">CLIENT:</span> <span>Anonymous // Dubai Marketing Agency</span></div>
                 <div><span className="text-muted-foreground">SYSTEM_DEPLOYED:</span> <span>Post Malone</span></div>
+                <div><span className="text-muted-foreground">IMPACT:</span> <span className="text-primary">"TEXT_CONTENT_OPS — hooks, captions, CTAs, hashtags, briefs — fully automated"</span></div>
               </div>
             </div>
             <div className="pt-6">
@@ -35,7 +36,7 @@ const Index = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "Time to generate a full monthly calendar", metric: "METRIC_02" },
+            { target: 60, suffix: "sec", label: "Time to generate a complete month of scroll-stopping text content — hooks, captions, CTAs, hashtags, and designer briefs. Ready to hand to your designer.", metric: "METRIC_02" },
             { target: 11, suffix: "", label: "Active clients managed without extra hires", metric: "METRIC_03" },
             { target: 1, suffix: "mo", label: "Time to full deployment", metric: "METRIC_04" },
           ].map((stat) => (
@@ -58,7 +59,7 @@ const Index = () => {
           {[
             { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
             { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
-            { error: "Inconsistent AI", desc: "ChatGPT used differently every time. No brand context saved. No memory." },
+            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context. No record of what performed. Just you, a blank chat window, and another hour gone." },
             { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card">
@@ -87,6 +88,26 @@ const Index = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Terminal Output Block */}
+        <div className="mt-8">
+          <TerminalWindow title="postmalone.output — bash">
+            <div className="text-sm space-y-1">
+              <div className="text-muted-foreground">&gt; Generation complete. Delivered for [CLIENT_NAME]:</div>
+              <div className="text-muted-foreground">&gt;</div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">13 posts</span> <span className="text-muted-foreground">— Mon / Wed / Fri scheduled dates</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">Hook</span> <span className="text-muted-foreground">— scroll-stopping opening line per post</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">Caption</span> <span className="text-muted-foreground">— full branded body copy per post</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">CTA</span> <span className="text-muted-foreground">— tailored call to action per post</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">Hashtags</span> <span className="text-muted-foreground">— researched and formatted per post</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">Designer Brief</span> <span className="text-muted-foreground">— visual direction per post</span></div>
+              <div><span className="text-primary">✓</span> <span className="text-foreground">Google Slides</span> <span className="text-muted-foreground">— fully formatted calendar</span></div>
+              <div className="text-muted-foreground">&gt;</div>
+              <div className="text-muted-foreground">&gt; Total generation time: <span className="text-terminal-green">58 seconds</span></div>
+              <div className="text-muted-foreground">&gt; Human input required: <span className="text-terminal-green">1 Telegram message</span></div>
+            </div>
+          </TerminalWindow>
         </div>
       </section>
 
