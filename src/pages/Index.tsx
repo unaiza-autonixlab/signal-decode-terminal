@@ -38,11 +38,15 @@ const Index = () => {
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
             { target: 60, suffix: "sec", label: "Time to generate a complete month of scroll-stopping text content — hooks, captions, CTAs, hashtags, and designer briefs. Ready to hand to your designer.", metric: "METRIC_02" },
             { target: 11, suffix: "", label: "Active clients managed without extra hires", metric: "METRIC_03" },
-            { target: 1, suffix: "mo", label: "Time to full deployment", metric: "METRIC_04" },
+            { value: "3-7", suffix: "days", label: "Time to full deployment", metric: "METRIC_04" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card">
               <div className="text-[10px] text-terminal-green mb-1">{stat.metric}</div>
-              <CountUp target={stat.target} suffix={stat.suffix} />
+              {'value' in stat ? (
+                <div className="text-4xl font-bold text-primary mb-1 tabular-nums">{stat.value}{stat.suffix}</div>
+              ) : (
+                <CountUp target={stat.target as number} suffix={stat.suffix} />
+              )}
               <div className="text-xs text-muted-foreground leading-relaxed">{stat.label}</div>
             </div>
           ))}
@@ -207,12 +211,8 @@ const Index = () => {
             <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted-foreground">
-            <a href="mailto:unaiza@autonixlab.com" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./contact -- unaiza@autonixlab.com
-            </a>
-            <a href="https://www.linkedin.com/in/unaiza-masood/" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./connect -- linkedin.com/in/unaiza-masood
-            </a>
+            <span className="py-1">$ ./contact -- unaiza@autonixlab.com</span>
+            <span className="py-1">$ ./connect -- linkedin.com/in/unaiza-masood</span>
             <a href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
               $ ./book-call
             </a>
