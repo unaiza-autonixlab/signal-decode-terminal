@@ -36,14 +36,14 @@ const Index = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "Time to generate a complete month of scroll-stopping text content — hooks, captions, CTAs, hashtags, and designer briefs. Ready to hand to your designer.", metric: "METRIC_02" },
+            { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
             { target: 11, suffix: "", label: "Active clients managed without extra hires", metric: "METRIC_03" },
-            { value: "3-7", suffix: "days", label: "Time to full deployment", metric: "METRIC_04" },
+            { value: "3-7", suffix: "", subtext: "days", label: "Time to full deployment", metric: "METRIC_04" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card">
               <div className="text-[10px] text-terminal-green mb-1">{stat.metric}</div>
               {'value' in stat ? (
-                <div className="text-4xl font-bold text-primary mb-1 tabular-nums">{stat.value}{stat.suffix}</div>
+                <div className="text-4xl font-bold text-primary mb-1 tabular-nums leading-tight">{stat.value}<span className="text-2xl block">{stat.subtext || stat.suffix}</span></div>
               ) : (
                 <CountUp target={stat.target as number} suffix={stat.suffix} />
               )}
