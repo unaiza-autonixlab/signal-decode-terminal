@@ -155,29 +155,47 @@ const Index = () => {
       {/* SECTION 7 — CTA */}
       <section className="max-w-5xl mx-auto py-32 px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Your agency runs the same playbook.</h2>
-        <p className="text-muted-foreground mb-12">We've already built the fix.</p>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-          <a href="https://calendly.com/unaiza-autonixlab" target="_blank" rel="noopener noreferrer" className="bg-primary text-primary-foreground px-8 py-4 font-bold hover:bg-foreground transition-colors w-full md:w-auto text-center">
-            $ ./book-call
-          </a>
-          <a href="mailto:unaiza@autonixlab.com" className="border border-primary text-primary px-8 py-4 font-bold hover:bg-primary hover:text-primary-foreground transition-all w-full md:w-auto text-center">
-            $ ./contact-unaiza
-          </a>
-        </div>
-        <div className="text-[10px] text-terminal-green">
+        <p className="text-muted-foreground mb-8">We've already built the fix.</p>
+        <p className="text-terminal-green italic text-sm md:text-base mb-8 leading-relaxed">
+          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.<br />
+          No pitch. No pressure.
+        </p>
+        <a
+          href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all"
+        >
+          $ ./book-discovery-call
+        </a>
+        <div className="text-[10px] text-terminal-green mt-8">
           unaiza:~$ system capacity: 2 slots remaining this month
         </div>
       </section>
 
+      {/* TRANSMISSION COMPLETE */}
+      <div className="text-center py-8 text-terminal-green text-xs">
+        autonixlab:~$ transmission.complete // signal deployed successfully
+      </div>
+
       {/* FOOTER */}
-      <footer className="max-w-5xl mx-auto py-12 px-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
-        <div>
-          <div className="text-primary font-bold mb-2">UNAIZA × POST MALONE</div>
-          <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
-        </div>
-        <div className="flex gap-6 text-[10px] uppercase tracking-widest text-muted-foreground">
-          <a href="mailto:unaiza@autonixlab.com" className="hover:text-foreground transition-colors">Contact</a>
-          <a href="https://calendly.com/unaiza-autonixlab" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Book a Call</a>
+      <footer className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div>
+            <div className="text-primary font-bold mb-2">UNAIZA × POST MALONE</div>
+            <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 text-[10px] text-muted-foreground">
+            <a href="mailto:unaiza@autonixlab.com" className="hover:text-primary transition-colors">
+              $ ./contact -- unaiza@autonixlab.com
+            </a>
+            <a href="https://www.linkedin.com/in/unaiza-masood/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              $ ./connect -- linkedin.com/in/unaiza-masood
+            </a>
+            <a href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              $ ./book-call
+            </a>
+          </div>
         </div>
       </footer>
     </div>
