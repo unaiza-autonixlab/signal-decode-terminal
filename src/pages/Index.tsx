@@ -189,7 +189,7 @@ const Index = () => {
         >
           $ ./book-discovery-call
         </a>
-        <div className="text-[10px] text-terminal-green mt-8">
+        <div className="text-[10px] text-terminal-green mt-6">
           unaiza:~$ system capacity: 2 slots remaining this month
         </div>
       </section>
