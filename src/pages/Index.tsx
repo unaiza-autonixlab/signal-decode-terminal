@@ -43,7 +43,7 @@ const Index = () => {
 
       {/* SECTION 3 — THE PROBLEM */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-        <div className="mb-8">
+        <div className="mb-8 text-center md:text-left">
           <h2 className="text-xl font-bold tracking-tighter mb-1">&gt; PROBLEM_IDENTIFIED</h2>
           <p className="text-primary text-sm">The agency was drowning in content operations</p>
         </div>
