@@ -39,7 +39,7 @@ const CountUp = ({ target, suffix, duration = 1500 }: CountUpProps) => {
   }, [target, duration]);
 
   return (
-    <div ref={ref} className="text-4xl font-bold text-primary mb-1 tabular-nums">
+    <div ref={ref} className="text-3xl md:text-4xl font-bold text-primary mb-2 tabular-nums leading-tight">
       {value}{suffix}
     </div>
   );
