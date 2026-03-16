@@ -1,6 +1,6 @@
 import TerminalWindow from "@/components/TerminalWindow";
 import CountUp from "@/components/CountUp";
-import TypingAnimation from "@/components/TypingAnimation";
+
 import SystemProfile from "@/components/SystemProfile";
 import LiveOutput from "@/components/LiveOutput";
 
@@ -82,76 +82,8 @@ const Index = () => {
         <CtaButton label="Sound familiar? Let's fix it." />
       </section>
 
-      {/* SECTION 4 — THE SOLUTION / TERMINAL DEPLOY */}
-      <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-        <div className="terminal-window rounded-lg overflow-hidden p-6 md:p-8">
-          <div className="overflow-x-auto">
-            <TypingAnimation />
-          </div>
-          <div className="mt-8 pt-8 border-t border-border">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              {["/telegram", "/generate", "/approve", "/slides.output"].map((step, i) => <div key={step} className="flex items-center gap-4">
-                  <div className="bg-card border border-primary px-6 py-3 text-xs md:text-sm">{step}</div>
-                  {i < 3 && <span className="text-primary font-bold hidden md:block">→</span>}
-                </div>)}
-            </div>
-          </div>
-        </div>
 
-        {/* Terminal Output Block */}
-        <div className="mt-6">
-          <TerminalWindow title="postmalone.output — bash">
-            <div className="text-base md:text-lg space-y-3 leading-relaxed">
-              <div className="text-muted-foreground">&gt; Generation complete. Delivered for [CLIENT_NAME]:</div>
-              <div className="text-muted-foreground">&gt;</div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">13 posts</span>{" "}
-                <span className="text-muted-foreground">— Mon / Wed / Fri scheduled dates</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">Hook</span>{" "}
-                <span className="text-muted-foreground">— scroll-stopping opening line per post</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">Caption</span>{" "}
-                <span className="text-muted-foreground">— full branded body copy per post</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">CTA</span>{" "}
-                <span className="text-muted-foreground">— tailored call to action per post</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">Hashtags</span>{" "}
-                <span className="text-muted-foreground">— researched and formatted per post</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">Designer Brief</span>{" "}
-                <span className="text-muted-foreground">— visual direction per post</span>
-              </div>
-              <div>
-                <span className="text-primary">✓</span>{" "}
-                <span className="text-foreground font-bold">Google Slides</span>{" "}
-                <span className="text-muted-foreground">— fully formatted calendar</span>
-                <div className="text-xs text-muted-foreground ml-6 mt-1 italic">your content calendar, ready to post</div>
-              </div>
-              <div className="text-muted-foreground">&gt;</div>
-              <div className="text-muted-foreground">
-                &gt; Total generation time: <span className="text-terminal-green font-bold">58 seconds</span>
-              </div>
-              <div className="text-muted-foreground">
-                &gt; Human input required: <span className="text-terminal-green font-bold">1 Telegram message</span>
-              </div>
-            </div>
-          </TerminalWindow>
-        </div>
-        <CtaButton label="See this for your clients." />
-      </section>
+
 
       {/* SECTION 5 — LIVE OUTPUT */}
       <LiveOutput />
