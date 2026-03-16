@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause, X, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 import tg1 from "@/assets/tg1.jpg";
 import tg2 from "@/assets/tg2.jpg";
@@ -22,7 +22,6 @@ const DISPLAY_MS = 3000;
 const LiveOutput = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimer = () => {
@@ -90,19 +89,13 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        <div
-          onClick={() => { setPlaying(false); clearTimer(); setLightboxIndex(activeIndex); }}
-          className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm cursor-zoom-in relative group"
-        >
+        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
             key={activeIndex}
             src={current.src}
             alt={current.label}
             className="w-full h-full object-contain"
           />
-          <div className="absolute inset-0 flex items-center justify-center bg-background/0 group-hover:bg-background/30 transition-colors">
-            <ZoomIn className="w-6 h-6 text-foreground opacity-0 group-hover:opacity-80 transition-opacity" />
-          </div>
         </div>
 
         <button
@@ -139,48 +132,6 @@ const LiveOutput = () => {
           See this running for your clients. Reply YES.
         </a>
       </div>
-      {/* Lightbox */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm"
-          onClick={() => setLightboxIndex(null)}
-        >
-          <button
-            onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }}
-            aria-label="Close zoom"
-            className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
-          >
-            <X className="w-8 h-8" />
-          </button>
-
-          <button
-            onClick={(e) => { e.stopPropagation(); setLightboxIndex(((lightboxIndex - 1) % slides.length + slides.length) % slides.length); }}
-            aria-label="Previous screenshot"
-            className="absolute left-4 text-muted-foreground hover:text-foreground transition-colors z-10"
-          >
-            <ChevronLeft className="w-10 h-10" />
-          </button>
-
-          <img
-            src={slides[lightboxIndex].src}
-            alt={slides[lightboxIndex].label}
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-[90vw] object-contain"
-          />
-
-          <button
-            onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % slides.length); }}
-            aria-label="Next screenshot"
-            className="absolute right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
-          >
-            <ChevronRight className="w-10 h-10" />
-          </button>
-
-          <div className="absolute bottom-6 left-0 right-0 text-center">
-            <span className="text-sm font-mono text-terminal-green">{slides[lightboxIndex].label}</span>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
