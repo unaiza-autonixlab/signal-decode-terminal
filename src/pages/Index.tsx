@@ -3,12 +3,12 @@ import CountUp from "@/components/CountUp";
 import SystemProfile from "@/components/SystemProfile";
 import LiveOutput from "@/components/LiveOutput";
 
-const CALENDLY_URL = "https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03";
+const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
 
 const CtaButton = ({ label }: { label: string }) => (
   <div className="text-center mt-12">
     <a
-      href={CALENDLY_URL}
+      href={LINKEDIN_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide"
@@ -82,7 +82,7 @@ const Index = () => {
             </div>
           ))}
         </div>
-        <CtaButton label="Sound familiar? Let's fix it." />
+        <CtaButton label="This your agency? Reply YES." />
       </section>
 
       {/* LIVE OUTPUT */}
@@ -127,7 +127,7 @@ const Index = () => {
             </ul>
           </div>
         </div>
-        <CtaButton label="Want these numbers?" />
+        <CtaButton label="Want these numbers? Reply YES." />
       </section>
 
       {/* TESTIMONIAL */}
@@ -155,7 +155,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <CtaButton label="Get the system" />
+        <CtaButton label="Ready to get your time back? Reply YES." />
       </section>
 
       {/* FINAL CTA */}
@@ -163,15 +163,15 @@ const Index = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Your agency runs the same playbook.</h2>
         <p className="text-muted-foreground text-base md:text-lg mb-6">We've already built the fix.</p>
         <p className="text-terminal-green italic text-base mb-10 leading-relaxed">
-          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.
+          &gt; Reply YES on LinkedIn. I'll reach out within the hour.
         </p>
         <a
-          href={CALENDLY_URL}
+          href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide"
         >
-          Book a Call
+          Reply YES on LinkedIn
         </a>
         <div className="text-xs text-terminal-green mt-6 tracking-widest">3 slots remaining this month</div>
       </section>
@@ -185,9 +185,8 @@ const Index = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted-foreground">
             <span className="py-1">$ ./contact — unaiza@autonixlab.com</span>
-            <span className="py-1">$ ./connect — linkedin.com/in/unaiza-masood</span>
-            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./book-call
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
+              $ ./connect — linkedin.com/in/unaiza-masood
             </a>
           </div>
         </div>
