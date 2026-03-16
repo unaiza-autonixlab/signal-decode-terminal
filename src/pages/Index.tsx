@@ -37,8 +37,9 @@ const Index = () => {
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
             { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
-            { target: 11, suffix: "", label: "Active clients managed without extra hires", metric: "METRIC_03" },
+            { value: "$0", suffix: "", subtext: "", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
             { value: "3-7", suffix: "", subtext: "days", label: "Time to full deployment", metric: "METRIC_04" },
+            { value: "$2,700", suffix: "", subtext: "", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_05" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card">
               <div className="text-[10px] text-terminal-green mb-1">{stat.metric}</div>
@@ -162,7 +163,7 @@ const Index = () => {
           <div className="text-muted-foreground mb-4">------- SIGNAL DECODED -------</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-6">
             <div>SIGNAL_ID: sig_003</div>
-            <div>SOURCE: Kate H. // Owner, Dubai Marketing Agency</div>
+            <div>SOURCE: Anonymous // Dubai Marketing Agency</div>
             <div className="text-primary">IMPACT: CONTENT_OPS -98%</div>
           </div>
           <div className="border-l-2 border-primary pl-6 py-2 my-6">
@@ -194,7 +195,7 @@ const Index = () => {
           $ ./book-discovery-call
         </a>
         <div className="text-[10px] text-terminal-green mt-6">
-          unaiza:~$ system capacity: 2 slots remaining this month
+          unaiza:~$ system capacity: 3 slots remaining this month
         </div>
       </section>
 
