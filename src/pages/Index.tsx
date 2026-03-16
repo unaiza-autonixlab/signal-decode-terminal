@@ -185,7 +185,7 @@ const Index = () => {
 
       {/* FOOTER */}
       <footer className="max-w-5xl mx-auto py-8 px-6 border-t border-border">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <div>
             <div className="text-primary font-bold mb-1">UNAIZA × POST MALONE</div>
             <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
