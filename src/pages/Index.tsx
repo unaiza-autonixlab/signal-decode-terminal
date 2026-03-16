@@ -147,20 +147,17 @@ const Index = () => {
       {/* SECTION 6 — CLIENT SIGNAL */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <div className="terminal-window p-6">
-          <div className="text-muted-foreground mb-4">------- SIGNAL DECODED -------</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-6">
-            <div>SIGNAL_ID: sig_003</div>
-            <div>SOURCE: Anonymous // Dubai Marketing Agency</div>
-            <div className="text-primary">IMPACT: CONTENT_OPS -98%</div>
-          </div>
           <div className="border-l-2 border-primary pl-6 py-2 my-6">
-            <blockquote className="text-xl italic leading-relaxed">
+            <blockquote className="text-xl italic leading-relaxed text-center md:text-left">
               "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
           </div>
-          <div className="space-y-1.5 text-xs text-muted-foreground">
-            <div>Previous monthly spend on content ops: <span className="text-foreground">$4,200+ (Man-hours)</span></div>
-            <div>Current monthly investment: <span className="text-terminal-green">$1,500</span></div>
+          <div className="text-xs text-muted-foreground mt-4 text-center md:text-left">
+            SOURCE: Anonymous // Dubai Marketing Agency
+          </div>
+          <div className="space-y-2 mt-6 text-center md:text-left">
+            <div className="text-base md:text-lg font-semibold">Previous monthly spend on content ops: <span className="text-foreground">$4,200+ (Man-hours)</span></div>
+            <div className="text-base md:text-lg font-semibold">Current monthly investment: <span className="text-terminal-green">$1,500</span></div>
           </div>
         </div>
       </section>
