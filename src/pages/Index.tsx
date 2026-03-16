@@ -45,16 +45,12 @@ const Index = () => {
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
             { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
-            { value: "$0", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
-            { value: "$2,700", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_04" },
+            { target: 0, from: 1000, prefix: "$", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
+            { target: 2700, from: 100, prefix: "$", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_04" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card text-center">
               <div className="text-[10px] text-terminal-green mb-2 tracking-widest">{stat.metric}</div>
-              {"value" in stat ? (
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2 tabular-nums leading-tight">{stat.value}</div>
-              ) : (
-                <CountUp target={stat.target as number} suffix={stat.suffix} />
-              )}
+              <CountUp target={stat.target} suffix={stat.suffix} prefix={stat.prefix} from={stat.from} />
               <div className="text-xs md:text-sm text-muted-foreground leading-relaxed mt-2">{stat.label}</div>
             </div>
           ))}
