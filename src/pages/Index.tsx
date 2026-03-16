@@ -163,7 +163,7 @@ const Index = () => {
           <div className="text-muted-foreground mb-4">------- SIGNAL DECODED -------</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-6">
             <div>SIGNAL_ID: sig_003</div>
-            <div>SOURCE: Kate H. // Owner, Dubai Marketing Agency</div>
+            <div>SOURCE: Anonymous // Dubai Marketing Agency</div>
             <div className="text-primary">IMPACT: CONTENT_OPS -98%</div>
           </div>
           <div className="border-l-2 border-primary pl-6 py-2 my-6">
