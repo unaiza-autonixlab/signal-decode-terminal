@@ -57,10 +57,10 @@ const LiveOutput = () => {
   const current = slides[activeIndex];
 
   return (
-    <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
-      <div className="mb-8 text-center">
+    <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
+      <div className="mb-10 text-center">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">&gt; LIVE_OUTPUT</h2>
-        <p className="text-muted-foreground text-base md:text-lg italic leading-relaxed">
+        <p className="text-muted-foreground text-sm md:text-base italic leading-relaxed">
           This is what happens when you trigger the system.
         </p>
       </div>
@@ -80,7 +80,7 @@ const LiveOutput = () => {
       </div>
 
       {/* Carousel */}
-      <div className="flex items-center justify-center gap-2 md:gap-6">
+      <div className="flex items-center justify-center gap-3 md:gap-6">
         <button
           onClick={handlePrev}
           aria-label="Previous screenshot"
@@ -89,7 +89,7 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden">
+        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
             key={activeIndex}
             src={current.src}
@@ -122,12 +122,12 @@ const LiveOutput = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-10">
+      <div className="text-center mt-12">
         <a
           href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide"
+          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-10 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide rounded-sm"
         >
           See this running for your clients. Reply YES.
         </a>
