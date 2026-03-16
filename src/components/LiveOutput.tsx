@@ -17,44 +17,100 @@ const slides = [
   { src: tg5, label: "> step_05: output — week 2 detail view" },
 ];
 
-const DISPLAY_MS = 3000;
+const FADE_MS = 600;
+const HOLD_MS = 3000;
 
 const LiveOutput = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [opacity, setOpacity] = useState(1);
   const [playing, setPlaying] = useState(true);
+  const [transitioning, setTransitioning] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const playingRef = useRef(playing);
+
+  playingRef.current = playing;
 
   const clearTimer = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
   };
 
-  const goTo = useCallback((next: number) => {
-    const idx = ((next % slides.length) + slides.length) % slides.length;
-    setActiveIndex(idx);
+  const transitionTo = useCallback((nextIndex: number) => {
+    if (transitioning) return;
+    const idx = ((nextIndex % slides.length) + slides.length) % slides.length;
+    if (idx === displayIndex) return;
+
+    setTransitioning(true);
+    setActiveIndex(idx); // dots update immediately
+
+    // Fade out current
+    setOpacity(0);
+
+    timerRef.current = setTimeout(() => {
+      // Swap image while invisible
+      setDisplayIndex(idx);
+
+      // Small rAF to ensure the browser paints opacity:0 with new image before fading in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Fade in new
+          setOpacity(1);
+
+          timerRef.current = setTimeout(() => {
+            setTransitioning(false);
+            // If playing, schedule next after hold
+            if (playingRef.current) {
+              timerRef.current = setTimeout(() => {
+                transitionTo(idx + 1);
+              }, HOLD_MS);
+            }
+          }, FADE_MS);
+        });
+      });
+    }, FADE_MS);
+  }, [transitioning, displayIndex]);
+
+  // Auto-play: start the first hold timer on mount or when playing resumes
+  useEffect(() => {
+    if (playing && !transitioning) {
+      clearTimer();
+      timerRef.current = setTimeout(() => {
+        transitionTo(activeIndex + 1);
+      }, HOLD_MS);
+    }
+    if (!playing) {
+      // Only clear hold timers, not transition timers
+      if (!transitioning) clearTimer();
+    }
+    return () => {
+      if (!transitioning) clearTimer();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing]);
+
+  const handleArrow = useCallback((direction: number) => {
+    setPlaying(false);
+    if (transitioning) return;
+    clearTimer();
+    const next = activeIndex + direction;
+    transitionTo(next);
+  }, [activeIndex, transitioning, transitionTo]);
+
+  const handleDot = useCallback((i: number) => {
+    setPlaying(false);
+    if (transitioning) return;
+    clearTimer();
+    transitionTo(i);
+  }, [transitioning, transitionTo]);
+
+  const handleToggle = useCallback(() => {
+    setPlaying(p => !p);
   }, []);
 
-  useEffect(() => {
-    if (!playing) return;
-    clearTimer();
-    timerRef.current = setTimeout(() => {
-      goTo(activeIndex + 1);
-    }, DISPLAY_MS);
-    return clearTimer;
-  }, [activeIndex, playing, goTo]);
-
-  const handlePrev = () => {
-    setPlaying(false);
-    clearTimer();
-    goTo(activeIndex - 1);
-  };
-
-  const handleNext = () => {
-    setPlaying(false);
-    clearTimer();
-    goTo(activeIndex + 1);
-  };
-
-  const current = slides[activeIndex];
+  const current = slides[displayIndex];
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
@@ -68,13 +124,19 @@ const LiveOutput = () => {
       {/* Play/Pause + Step label */}
       <div className="flex items-center justify-center gap-3 mb-6">
         <button
-          onClick={() => setPlaying((p) => !p)}
+          onClick={handleToggle}
           aria-label={playing ? "Pause" : "Play"}
           className="text-terminal-green hover:text-primary transition-colors"
         >
           {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
         </button>
-        <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left">
+        <span
+          className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left"
+          style={{
+            opacity,
+            transition: `opacity ${FADE_MS}ms ease-in-out`,
+          }}
+        >
           {current.label}
         </span>
       </div>
@@ -82,7 +144,7 @@ const LiveOutput = () => {
       {/* Carousel */}
       <div className="flex items-center justify-center gap-3 md:gap-6">
         <button
-          onClick={handlePrev}
+          onClick={() => handleArrow(-1)}
           aria-label="Previous screenshot"
           className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
         >
@@ -91,15 +153,18 @@ const LiveOutput = () => {
 
         <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
-            key={activeIndex}
             src={current.src}
             alt={current.label}
             className="w-full h-full object-contain"
+            style={{
+              opacity,
+              transition: `opacity ${FADE_MS}ms ease-in-out`,
+            }}
           />
         </div>
 
         <button
-          onClick={handleNext}
+          onClick={() => handleArrow(1)}
           aria-label="Next screenshot"
           className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
         >
@@ -112,7 +177,7 @@ const LiveOutput = () => {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => { setPlaying(false); clearTimer(); goTo(i); }}
+            onClick={() => handleDot(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${
               i === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
