@@ -28,18 +28,14 @@ const LiveOutput = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
   };
 
-  const goTo = useCallback(
-    (next: number) => {
-      setFade("out");
-      setTimeout(() => {
-        setActiveIndex(next % slides.length);
-        setFade("in");
-      }, FADE_MS);
-    },
-    []
-  );
+  const goTo = useCallback((next: number) => {
+    setFade("out");
+    setTimeout(() => {
+      setActiveIndex(((next % slides.length) + slides.length) % slides.length);
+      setFade("in");
+    }, FADE_MS);
+  }, []);
 
-  // Auto-play loop
   useEffect(() => {
     if (!playing) return;
     clearTimer();
@@ -51,7 +47,7 @@ const LiveOutput = () => {
 
   const handlePrev = () => {
     clearTimer();
-    goTo((activeIndex - 1 + slides.length) % slides.length + slides.length);
+    goTo(activeIndex - 1);
   };
 
   const handleNext = () => {
@@ -62,15 +58,16 @@ const LiveOutput = () => {
   const current = slides[activeIndex];
 
   return (
-    <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-      <h2 className="text-xl font-bold mb-2 text-center">&gt; LIVE_OUTPUT</h2>
-
-      <p className="text-muted-foreground text-base md:text-lg italic text-center mb-10 leading-relaxed">
-        This is what happens when you trigger the system.
-      </p>
+    <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
+      <div className="mb-10 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">&gt; LIVE_OUTPUT</h2>
+        <p className="text-muted-foreground text-base md:text-lg italic leading-relaxed">
+          This is what happens when you trigger the system.
+        </p>
+      </div>
 
       {/* Play/Pause + Step label */}
-      <div className="flex items-center justify-center gap-3 mb-4">
+      <div className="flex items-center justify-center gap-3 mb-6">
         <button
           onClick={() => setPlaying((p) => !p)}
           aria-label={playing ? "Pause" : "Play"}
@@ -85,7 +82,6 @@ const LiveOutput = () => {
 
       {/* Carousel */}
       <div className="flex items-center justify-center gap-2 md:gap-6">
-        {/* Left arrow */}
         <button
           onClick={handlePrev}
           aria-label="Previous screenshot"
@@ -94,7 +90,6 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        {/* Image container */}
         <div className={`w-full ${current.maxWidth} mx-auto`}>
           <img
             src={current.src}
@@ -107,7 +102,6 @@ const LiveOutput = () => {
           />
         </div>
 
-        {/* Right arrow */}
         <button
           onClick={handleNext}
           aria-label="Next screenshot"
@@ -118,7 +112,7 @@ const LiveOutput = () => {
       </div>
 
       {/* Dots */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex justify-center gap-2.5 mt-6">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -132,12 +126,12 @@ const LiveOutput = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-10">
+      <div className="text-center mt-12">
         <a
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base"
+          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide"
         >
           $ ./book-discovery-call
         </a>
