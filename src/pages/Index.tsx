@@ -46,10 +46,10 @@ const Index = () => {
       <section className="max-w-5xl mx-auto py-12 px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
-            { target: 0, from: 1000, prefix: "$", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
-            { target: 2700, from: 100, prefix: "$", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_04" },
+            { target: 20, suffix: "hrs", label: "Saved every week, per client", metric: "METRIC_01" },
+            { target: 60, suffix: "sec", label: "To generate a full month of content", metric: "METRIC_02" },
+            { target: 0, from: 1000, prefix: "$", label: "Extra hires needed to scale", metric: "METRIC_03" },
+            { target: 2700, from: 100, prefix: "$", label: "Saved every month on content ops", metric: "METRIC_04" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card text-center">
               <div className="text-[10px] text-terminal-green mb-2 tracking-widest">{stat.metric}</div>
