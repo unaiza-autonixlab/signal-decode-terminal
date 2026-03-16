@@ -3,10 +3,10 @@ import CountUp from "@/components/CountUp";
 import SystemProfile from "@/components/SystemProfile";
 import LiveOutput from "@/components/LiveOutput";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood";
+const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood/";
 
 const CtaButton = ({ label }: { label: string }) => (
-  <div className="text-center mt-12">
+  <div className="text-center mt-10">
     <a
       href={LINKEDIN_URL}
       target="_blank"
@@ -19,8 +19,8 @@ const CtaButton = ({ label }: { label: string }) => (
 );
 
 const SectionHeading = ({ children, sub }: { children: React.ReactNode; sub?: string }) => (
-  <div className="mb-10 text-center">
-    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">{children}</h2>
+  <div className="mb-8 text-center">
+    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">{children}</h2>
     {sub && <p className="text-primary text-base md:text-lg">{sub}</p>}
   </div>
 );
@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground font-mono scroll-smooth text-base leading-relaxed">
       {/* HEADER */}
-      <header className="max-w-5xl mx-auto pt-12 pb-4 px-6">
+      <header className="max-w-5xl mx-auto pt-10 pb-2 px-6">
         <TerminalWindow>
           <div className="py-6 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-primary leading-tight">
@@ -40,7 +40,7 @@ const Index = () => {
       </header>
 
       {/* METRICS */}
-      <section className="max-w-5xl mx-auto py-16 px-6">
+      <section className="max-w-5xl mx-auto py-12 px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
@@ -65,7 +65,7 @@ const Index = () => {
       <SystemProfile />
 
       {/* PROBLEM IDENTIFIED */}
-      <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
+      <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
         <SectionHeading sub="The agency was drowning in content operations">
           &gt; PROBLEM_IDENTIFIED
         </SectionHeading>
@@ -89,7 +89,7 @@ const Index = () => {
       <LiveOutput />
 
       {/* RESULTS LOG */}
-      <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
+      <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
         <SectionHeading>&gt; RESULTS_LOG</SectionHeading>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="before-card p-6">
@@ -131,18 +131,18 @@ const Index = () => {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
+      <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
         <div className="terminal-window p-6 md:p-10">
           <div className="border-l-2 border-primary pl-6 py-4">
             <blockquote className="text-lg md:text-xl leading-relaxed italic text-center md:text-left">
               "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
           </div>
-          <div className="text-xs text-muted-foreground mt-6 text-center md:text-left tracking-widest">
+          <div className="text-xs text-muted-foreground mt-4 text-center md:text-left tracking-widest">
             SOURCE: Anonymous // Dubai Marketing Agency
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             <div className="bg-destructive/10 border border-destructive/20 p-5 text-center">
               <div className="text-[10px] text-destructive font-bold tracking-widest mb-2">BEFORE</div>
               <div className="text-3xl md:text-4xl font-bold text-foreground">$4,200<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
@@ -159,10 +159,10 @@ const Index = () => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="max-w-5xl mx-auto py-20 px-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">Your agency runs the same playbook.</h2>
-        <p className="text-muted-foreground text-base md:text-lg mb-6">We've already built the fix.</p>
-        <p className="text-terminal-green italic text-base mb-10 leading-relaxed">
+      <section className="max-w-5xl mx-auto py-16 px-6 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3">Your agency runs the same playbook.</h2>
+        <p className="text-muted-foreground text-base md:text-lg mb-4">We've already built the fix.</p>
+        <p className="text-terminal-green italic text-base mb-8 leading-relaxed">
           &gt; Reply YES on LinkedIn. I'll reach out within the hour.
         </p>
         <a
@@ -173,19 +173,19 @@ const Index = () => {
         >
           Reply YES on LinkedIn
         </a>
-        <div className="text-xs text-terminal-green mt-6 tracking-widest">3 slots remaining this month</div>
+        <div className="text-xs text-terminal-green mt-4 tracking-widest">3 slots remaining this month</div>
       </section>
 
       {/* FOOTER */}
-      <footer className="max-w-5xl mx-auto py-10 px-6 border-t border-border">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center">
+      <footer className="max-w-5xl mx-auto py-8 px-6 border-t border-border">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
           <div>
             <div className="text-primary font-bold text-base mb-1">UNAIZA × POST MALONE</div>
             <div className="text-xs text-muted-foreground tracking-widest">Intercepting operational chaos since 2024</div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted-foreground">
-            <span className="py-1">$ ./contact — unaiza@autonixlab.com</span>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
+          <div className="flex flex-col sm:flex-row gap-3 text-xs text-muted-foreground">
+            <span>$ ./contact — unaiza@autonixlab.com</span>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
               $ ./connect — linkedin.com/in/unaiza-masood
             </a>
           </div>

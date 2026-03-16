@@ -7,7 +7,7 @@ import tg3 from "@/assets/tg3.jpg";
 import tg4 from "@/assets/tg4.jpg";
 import tg5 from "@/assets/tg5.jpg";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood";
+const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood/";
 
 const slides = [
   { src: tg1, label: "> step_01: trigger sent via Telegram", maxWidth: "max-w-[480px]" },
@@ -62,9 +62,9 @@ const LiveOutput = () => {
   const current = slides[activeIndex];
 
   return (
-    <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
-      <div className="mb-10 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">&gt; LIVE_OUTPUT</h2>
+    <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">&gt; LIVE_OUTPUT</h2>
         <p className="text-muted-foreground text-base md:text-lg italic leading-relaxed">
           This is what happens when you trigger the system.
         </p>
@@ -130,7 +130,7 @@ const LiveOutput = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-12">
+      <div className="text-center mt-10">
         <a
           href={LINKEDIN_URL}
           target="_blank"
