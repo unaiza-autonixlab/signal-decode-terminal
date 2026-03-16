@@ -133,13 +133,13 @@ const Index = () => {
       {/* TESTIMONIAL */}
       <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
         <div className="terminal-window p-6 md:p-10">
+          <div className="text-xs text-muted-foreground mb-4 text-center md:text-left tracking-widest">
+            SOURCE: Anonymous // Dubai Marketing Agency
+          </div>
           <div className="border-l-2 border-primary pl-6 py-4">
             <blockquote className="text-lg md:text-xl leading-relaxed italic text-center md:text-left">
               "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
-          </div>
-          <div className="text-xs text-muted-foreground mt-4 text-center md:text-left tracking-widest">
-            SOURCE: Anonymous // Dubai Marketing Agency
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
