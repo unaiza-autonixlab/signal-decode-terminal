@@ -6,18 +6,18 @@ import LiveOutput from "@/components/LiveOutput";
 
 const CALENDLY_URL = "https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03";
 
-const CtaButton = ({ label }: { label: string }) => (
-  <div className="text-center mt-10">
+const CtaButton = ({ label }: {label: string;}) =>
+<div className="text-center mt-10">
     <a
-      href={CALENDLY_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base"
-    >
+    href={CALENDLY_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base">
+    
       {label}
     </a>
-  </div>
-);
+  </div>;
+
 
 const Index = () => {
   return (
@@ -39,21 +39,21 @@ const Index = () => {
       <section className="max-w-5xl mx-auto py-14 px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
-            { value: "$0", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
-            { value: "$2,700", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_04" },
-          ].map((stat) => (
-            <div key={stat.metric} className="stat-card text-center">
+          { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
+          { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
+          { value: "$0", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
+          { value: "$2,700", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_04" }].
+          map((stat) =>
+          <div key={stat.metric} className="stat-card text-center">
               <div className="text-[10px] text-terminal-green mb-1">{stat.metric}</div>
-              {'value' in stat ? (
-                <div className="text-4xl font-bold text-primary mb-1 tabular-nums leading-tight">{stat.value}</div>
-              ) : (
-                <CountUp target={stat.target as number} suffix={stat.suffix} />
-              )}
+              {'value' in stat ?
+            <div className="text-4xl font-bold text-primary mb-1 tabular-nums leading-tight">{stat.value}</div> :
+
+            <CountUp target={stat.target as number} suffix={stat.suffix} />
+            }
               <div className="text-sm text-muted-foreground leading-relaxed mt-2">{stat.label}</div>
             </div>
-          ))}
+          )}
         </div>
       </section>
 
@@ -68,16 +68,16 @@ const Index = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
-            { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
-            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context." },
-            { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
-          ].map((problem) => (
-            <div key={problem.error} className="problem-card text-center sm:text-left">
+          { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
+          { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
+          { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context." },
+          { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." }].
+          map((problem) =>
+          <div key={problem.error} className="problem-card text-center sm:text-left">
               <div className="text-[10px] text-destructive mb-3 font-bold">[ERROR] {problem.error}</div>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{problem.desc}</p>
             </div>
-          ))}
+          )}
         </div>
         <CtaButton label="Sound familiar? Let's fix it." />
       </section>
@@ -86,20 +86,20 @@ const Index = () => {
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <div className="terminal-window rounded-lg overflow-hidden p-6 md:p-8">
           <div className="mb-6 text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold mb-1">&gt; SYSTEM_DEPLOYED: Post Malone</h2>
-            <p className="text-muted-foreground text-base">Post Malone — live in 7 days</p>
+            <h2 className="text-xl md:text-2xl font-bold mb-1">
+</h2>
+            <p className="text-muted-foreground text-base">
+</p>
           </div>
           <div className="overflow-x-auto">
             <TypingAnimation />
           </div>
           <div className="mt-8 pt-8 border-t border-border">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              {["/telegram", "/generate", "/approve", "/slides.output"].map((step, i) => (
-                <div key={step} className="flex items-center gap-4">
+              {["/telegram", "/generate", "/approve", "/slides.output"].map((step, i) => <div key={step} className="flex items-center gap-4">
                   <div className="bg-card border border-primary px-6 py-3 text-xs md:text-sm">{step}</div>
                   {i < 3 && <span className="text-primary font-bold hidden md:block">→</span>}
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -167,34 +167,34 @@ const Index = () => {
             <div className="text-[10px] text-destructive mb-4 font-bold tracking-widest text-center md:text-left">PRE-DEPLOYMENT</div>
             <ul className="space-y-3 text-sm md:text-base">
               {[
-                ["Content planning:", "20 hours/week"],
-                ["Calendar creation:", "Manual, slide by slide"],
-                ["AI usage:", "Random, no context"],
-                ["New client cost:", "Hire more staff"],
-                ["Consistency:", "Low — varies by person"],
-              ].map(([label, value]) => (
-                <li key={label} className="flex justify-between border-b border-destructive/10 pb-2">
+              ["Content planning:", "20 hours/week"],
+              ["Calendar creation:", "Manual, slide by slide"],
+              ["AI usage:", "Random, no context"],
+              ["New client cost:", "Hire more staff"],
+              ["Consistency:", "Low — varies by person"]].
+              map(([label, value]) =>
+              <li key={label} className="flex justify-between border-b border-destructive/10 pb-2">
                   <span className="text-muted-foreground">{label}</span>
                   <span>{value}</span>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
           <div className="after-card p-6">
             <div className="text-[10px] text-terminal-green mb-4 font-bold tracking-widest text-center md:text-left">POST-DEPLOYMENT</div>
             <ul className="space-y-3 text-sm md:text-base">
               {[
-                ["Content planning:", "60 seconds"],
-                ["Calendar creation:", "Auto-generated Slides"],
-                ["AI usage:", "Full brand memory"],
-                ["New client cost:", "Zero — scales instantly"],
-                ["Consistency:", "High — same quality every time"],
-              ].map(([label, value]) => (
-                <li key={label} className="flex justify-between border-b border-terminal-green/10 pb-2">
+              ["Content planning:", "60 seconds"],
+              ["Calendar creation:", "Auto-generated Slides"],
+              ["AI usage:", "Full brand memory"],
+              ["New client cost:", "Zero — scales instantly"],
+              ["Consistency:", "High — same quality every time"]].
+              map(([label, value]) =>
+              <li key={label} className="flex justify-between border-b border-terminal-green/10 pb-2">
                   <span className="text-muted-foreground">{label}</span>
                   <span className="text-terminal-green">{value}</span>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
         </div>
@@ -244,12 +244,12 @@ const Index = () => {
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base"
-        >
-          $ ./book-discovery-call
+          className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base">
+
+
         </a>
-        <div className="text-[10px] text-terminal-green mt-6">
-          unaiza:~$ system capacity: 3 slots remaining this month
+        <div className="text-[10px] text-terminal-green mt-6">3 slots remaining this month
+
         </div>
       </section>
 
@@ -269,8 +269,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Index;
