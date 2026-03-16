@@ -133,7 +133,7 @@ const Index = () => {
       <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
         <div className="terminal-window p-6 md:p-10">
           <div className="text-xs text-muted-foreground mb-4 text-center md:text-left tracking-widest">
-            SOURCE: Anonymous // Dubai Marketing Agency
+            SOURCE: Anonymous // Dubai Marketing Agency (name withheld by request)
           </div>
           <div className="border-l-2 border-primary pl-6 py-4">
             <blockquote className="text-lg md:text-xl leading-relaxed italic text-center md:text-left">
