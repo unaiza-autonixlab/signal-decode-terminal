@@ -18,11 +18,9 @@ const slides = [
 ];
 
 const DISPLAY_MS = 3000;
-const FADE_MS = 0;
 
 const LiveOutput = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [fade, setFade] = useState<"in" | "out">("in");
   const [playing, setPlaying] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -31,7 +29,8 @@ const LiveOutput = () => {
   };
 
   const goTo = useCallback((next: number) => {
-    setActiveIndex(((next % slides.length) + slides.length) % slides.length);
+    const idx = ((next % slides.length) + slides.length) % slides.length;
+    setActiveIndex(idx);
   }, []);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const LiveOutput = () => {
       goTo(activeIndex + 1);
     }, DISPLAY_MS);
     return clearTimer;
-  }, [activeIndex, playing, fade, goTo]);
+  }, [activeIndex, playing, goTo]);
 
   const handlePrev = () => {
     setPlaying(false);
@@ -75,7 +74,7 @@ const LiveOutput = () => {
         >
           {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
         </button>
-        <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide">
+        <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left">
           {current.label}
         </span>
       </div>
@@ -90,15 +89,12 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto">
+        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden">
           <img
+            key={activeIndex}
             src={current.src}
             alt={current.label}
-            className="w-full h-auto rounded-sm"
-            style={{
-              opacity: fade === "in" ? 1 : 0,
-              transition: `opacity ${FADE_MS}ms ease`,
-            }}
+            className="w-full h-full object-contain"
           />
         </div>
 
@@ -116,9 +112,9 @@ const LiveOutput = () => {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => { clearTimer(); goTo(i); }}
+            onClick={() => { setPlaying(false); clearTimer(); goTo(i); }}
             aria-label={`Go to slide ${i + 1}`}
-            className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
+            className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${
               i === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
             }`}
           />

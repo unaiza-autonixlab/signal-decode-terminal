@@ -76,7 +76,7 @@ const Index = () => {
             { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card text-center sm:text-left">
-              <div className="text-[10px] text-destructive mb-3 font-bold tracking-widest">[ERROR] {problem.error}</div>
+              <div className="text-[10px] text-destructive mb-3 font-bold tracking-widest">[PROBLEM] {problem.error}</div>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{problem.desc}</p>
             </div>
           ))}
