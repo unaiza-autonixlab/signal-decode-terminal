@@ -66,14 +66,14 @@ const TypingAnimation = () => {
   const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   return (
-    <div ref={containerRef} className="space-y-3 text-sm min-h-[120px]">
+    <div ref={containerRef} className="space-y-4 text-base md:text-lg min-h-[160px] leading-relaxed overflow-x-auto">
       {lines.map((line, i) => (
         <div
           key={i}
           className={
             line.type === "cmd"
-              ? "text-foreground"
-              : "text-terminal-green ml-4 transition-opacity duration-500"
+              ? "text-muted-foreground whitespace-nowrap"
+              : "text-terminal-green font-bold ml-4 transition-opacity duration-500 whitespace-nowrap"
           }
         >
           {line.text}
