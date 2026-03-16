@@ -33,7 +33,6 @@ const LiveOutput = () => {
   const goTo = useCallback((next: number) => {
     setActiveIndex(((next % slides.length) + slides.length) % slides.length);
   }, []);
-  }, []);
 
   useEffect(() => {
     if (!playing) return;
