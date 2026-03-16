@@ -37,8 +37,9 @@ const Index = () => {
           {[
             { target: 20, suffix: "hrs", label: "Weekly hours saved on content planning", metric: "METRIC_01" },
             { target: 60, suffix: "sec", label: "Full month of content — hooks, captions, CTAs, hashtags & briefs", metric: "METRIC_02" },
-            { target: 11, suffix: "", label: "Active clients managed without extra hires", metric: "METRIC_03" },
+            { value: "$0", suffix: "", subtext: "", label: "Extra headcount needed to scale content operations", metric: "METRIC_03" },
             { value: "3-7", suffix: "", subtext: "days", label: "Time to full deployment", metric: "METRIC_04" },
+            { value: "$2,700", suffix: "", subtext: "", label: "Monthly savings vs previous content ops spend ($4,200 → $1,500)", metric: "METRIC_05" },
           ].map((stat) => (
             <div key={stat.metric} className="stat-card">
               <div className="text-[10px] text-terminal-green mb-1">{stat.metric}</div>
