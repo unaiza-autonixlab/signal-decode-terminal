@@ -69,8 +69,15 @@ const LiveOutput = () => {
         This is what happens when you trigger the system.
       </p>
 
-      {/* Step label */}
-      <div className="text-center mb-4">
+      {/* Play/Pause + Step label */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <button
+          onClick={() => setPlaying((p) => !p)}
+          aria-label={playing ? "Pause" : "Play"}
+          className="text-terminal-green hover:text-primary transition-colors"
+        >
+          {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+        </button>
         <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide">
           {current.label}
         </span>
