@@ -85,12 +85,6 @@ const Index = () => {
       {/* SECTION 4 — THE SOLUTION / TERMINAL DEPLOY */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <div className="terminal-window rounded-lg overflow-hidden p-6 md:p-8">
-          <div className="mb-6 text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold mb-1">
-</h2>
-            <p className="text-muted-foreground text-base">
-</p>
-          </div>
           <div className="overflow-x-auto">
             <TypingAnimation />
           </div>
@@ -159,7 +153,10 @@ const Index = () => {
         <CtaButton label="See this for your clients." />
       </section>
 
-      {/* SECTION 5 — THE RESULTS */}
+      {/* SECTION 5 — LIVE OUTPUT */}
+      <LiveOutput />
+
+      {/* SECTION 6 — THE RESULTS */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <h2 className="text-xl md:text-2xl font-bold mb-8 text-center">&gt; RESULTS_LOG</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,9 +197,6 @@ const Index = () => {
         </div>
         <CtaButton label="Want these numbers?" />
       </section>
-
-      {/* SECTION 6 — LIVE OUTPUT */}
-      <LiveOutput />
 
       {/* SECTION 7 — CLIENT SIGNAL / TESTIMONIAL */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
