@@ -191,7 +191,7 @@ const LiveOutput = () => {
       </div>
 
       {/* Single animated group: toggle + label + image */}
-      <div style={groupStyle}>
+      <div ref={groupRef} style={groupStyle}>
         {/* Play/Pause + Step label */}
         <div className="flex items-center justify-center gap-3 mb-6">
           <button
