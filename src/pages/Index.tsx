@@ -182,10 +182,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* TRANSMISSION COMPLETE */}
-      <div className="text-center py-6 text-terminal-green text-xs">
-        autonixlab:~$ transmission.complete // signal deployed successfully
-      </div>
 
       {/* FOOTER */}
       <footer className="max-w-5xl mx-auto py-8 px-6 border-t border-border">
