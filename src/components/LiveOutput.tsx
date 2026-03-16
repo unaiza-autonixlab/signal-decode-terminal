@@ -139,6 +139,48 @@ const LiveOutput = () => {
           See this running for your clients. Reply YES.
         </a>
       </div>
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }}
+            aria-label="Close zoom"
+            className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
+          >
+            <X className="w-8 h-8" />
+          </button>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex(((lightboxIndex - 1) % slides.length + slides.length) % slides.length); }}
+            aria-label="Previous screenshot"
+            className="absolute left-4 text-muted-foreground hover:text-foreground transition-colors z-10"
+          >
+            <ChevronLeft className="w-10 h-10" />
+          </button>
+
+          <img
+            src={slides[lightboxIndex].src}
+            alt={slides[lightboxIndex].label}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-[90vw] object-contain"
+          />
+
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % slides.length); }}
+            aria-label="Next screenshot"
+            className="absolute right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
+          >
+            <ChevronRight className="w-10 h-10" />
+          </button>
+
+          <div className="absolute bottom-6 left-0 right-0 text-center">
+            <span className="text-sm font-mono text-terminal-green">{slides[lightboxIndex].label}</span>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
