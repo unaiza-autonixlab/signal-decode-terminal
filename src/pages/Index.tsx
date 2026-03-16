@@ -32,9 +32,12 @@ const Index = () => {
       <header className="max-w-5xl mx-auto pt-10 pb-2 px-6">
         <TerminalWindow>
           <div className="py-6 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-primary leading-tight">
-              CONTENT_OPS −98%<br />TIME REDUCTION
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
+              20 Hours of Content Work.<br />Done in 60 Seconds.
             </h1>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto leading-relaxed">
+              A done-for-you AI system that generates your clients' monthly content calendars automatically.
+            </p>
           </div>
         </TerminalWindow>
       </header>
