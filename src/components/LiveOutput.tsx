@@ -130,7 +130,7 @@ const LiveOutput = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-12">
+      <div className="text-center mt-10">
         <a
           href={LINKEDIN_URL}
           target="_blank"
