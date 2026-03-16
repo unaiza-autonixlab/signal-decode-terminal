@@ -90,13 +90,19 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
+        <div
+          onClick={() => { setPlaying(false); clearTimer(); setLightboxIndex(activeIndex); }}
+          className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm cursor-zoom-in relative group"
+        >
           <img
             key={activeIndex}
             src={current.src}
             alt={current.label}
             className="w-full h-full object-contain"
           />
+          <div className="absolute inset-0 flex items-center justify-center bg-background/0 group-hover:bg-background/30 transition-colors">
+            <ZoomIn className="w-6 h-6 text-foreground opacity-0 group-hover:opacity-80 transition-opacity" />
+          </div>
         </div>
 
         <button
