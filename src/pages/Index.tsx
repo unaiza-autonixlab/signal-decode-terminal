@@ -185,9 +185,8 @@ const Index = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted-foreground">
             <span className="py-1">$ ./contact — unaiza@autonixlab.com</span>
-            <span className="py-1">$ ./connect — linkedin.com/in/unaiza-masood</span>
-            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
-              $ ./book-call
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-primary transition-colors cursor-pointer py-1">
+              $ ./connect — linkedin.com/in/unaiza-masood
             </a>
           </div>
         </div>
