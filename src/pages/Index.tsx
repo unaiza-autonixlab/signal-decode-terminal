@@ -3,7 +3,7 @@ import CountUp from "@/components/CountUp";
 import SystemProfile from "@/components/SystemProfile";
 import LiveOutput from "@/components/LiveOutput";
 
-const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
+const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood";
 
 const CtaButton = ({ label }: { label: string }) => (
   <div className="text-center mt-12">
