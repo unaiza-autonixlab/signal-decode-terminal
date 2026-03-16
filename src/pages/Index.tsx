@@ -105,7 +105,7 @@ const Index = () => {
 
       {/* SECTION 5 — THE RESULTS */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-        <h2 className="text-xl font-bold mb-8">&gt; RESULTS_LOG</h2>
+        <h2 className="text-xl font-bold mb-8 text-center md:text-left">&gt; RESULTS_LOG</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="before-card p-6">
             <div className="text-[10px] text-destructive mb-4 font-bold tracking-widest">PRE-DEPLOYMENT</div>
