@@ -70,10 +70,10 @@ const Index = () => {
         </SectionHeading>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
-            { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
-            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context." },
-            { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
+            { error: "Manual ideation", desc: "Every month started from zero." },
+            { error: "Slide bottleneck", desc: "Hours lost building slides manually." },
+            { error: "Zero content memory", desc: "Re-explaining the brand every single month." },
+            { error: "Scaling ceiling", desc: "Every new client meant a new hire." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card text-center sm:text-left">
               <div className="text-[10px] text-destructive mb-3 font-bold tracking-widest">[PROBLEM] {problem.error}</div>
