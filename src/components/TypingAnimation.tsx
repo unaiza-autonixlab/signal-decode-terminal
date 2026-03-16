@@ -6,9 +6,9 @@ interface Step {
 }
 
 const steps: Step[] = [
-  { cmd: "$ ./deploy brand-intelligence", res: "✓ Brand voice, pillars, historical posts loaded into memory" },
-  { cmd: "$ ./run postmalone --month=august", res: "✓ 13 posts generated in 58 seconds" },
-  { cmd: "$ ./export content-calendar --format=slides", res: "✓ Branded Google Slides delivered" },
+  { cmd: "", res: "" },
+  { cmd: "", res: "" },
+  { cmd: "", res: "" },
 ];
 
 const TypingAnimation = () => {

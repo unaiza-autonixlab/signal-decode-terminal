@@ -245,8 +245,7 @@ const Index = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base">
-
-
+          Book a Call
         </a>
         <div className="text-[10px] text-terminal-green mt-6">3 slots remaining this month
 

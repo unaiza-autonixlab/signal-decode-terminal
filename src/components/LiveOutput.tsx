@@ -42,7 +42,7 @@ const LiveOutput = () => {
     <section ref={sectionRef} className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
       <h2 className="text-xl font-bold mb-2 text-center">&gt; LIVE_OUTPUT</h2>
       <p className="text-muted-foreground text-base md:text-lg italic text-center mb-10 leading-relaxed">
-
+        This is what happens when you trigger the system.
       </p>
 
       <div className="flex flex-col items-center gap-8">
