@@ -167,8 +167,7 @@ const Index = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-3">Your agency runs the same playbook.</h2>
         <p className="text-muted-foreground mb-6">We've already built the fix.</p>
         <p className="text-terminal-green italic text-sm md:text-base mb-6 leading-relaxed">
-          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.<br />
-          No pitch. No pressure.
+          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.
         </p>
         <a
           href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03"
