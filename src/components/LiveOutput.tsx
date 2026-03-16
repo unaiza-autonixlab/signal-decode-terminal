@@ -33,6 +33,7 @@ const LiveOutput = () => {
   const transitioningRef = useRef(false);
   const pendingRef = useRef<number | null>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const groupRef = useRef<HTMLDivElement>(null);
 
   const clearTimers = useCallback(() => {
     timersRef.current.forEach(clearTimeout);
