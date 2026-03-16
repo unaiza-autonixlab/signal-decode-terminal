@@ -1,10 +1,10 @@
 const SystemProfile = () => (
-  <section className="max-w-5xl mx-auto py-12 px-6 text-center">
+  <section className="max-w-4xl mx-auto py-14 px-6 text-center">
     <div className="inline-block text-left">
-      <div className="text-[10px] text-terminal-green font-bold tracking-widest mb-4 text-center">
+      <div className="text-[10px] text-terminal-green font-bold tracking-widest mb-5 text-center">
         SYSTEM PROFILE
       </div>
-      <ul className="space-y-2.5 text-sm md:text-base text-muted-foreground leading-relaxed">
+      <ul className="space-y-3 text-sm md:text-base text-muted-foreground leading-relaxed">
         <li>
           <span className="text-foreground">•</span> System Name:{" "}
           <span className="text-foreground font-semibold">Post Malone</span>
