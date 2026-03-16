@@ -9,20 +9,7 @@ const Index = () => {
       <header className="max-w-5xl mx-auto pt-10 px-6">
         <TerminalWindow>
           <div className="space-y-3">
-            <div className="flex items-center text-sm">
-              <span className="text-terminal-green">unaiza:~$</span>
-              <span className="ml-2">cat /var/log/signals/post-malone.log</span>
-            </div>
-            <div className="pt-2">
-              <div className="text-muted-foreground">------- SIGNAL DECODED -------</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-3 text-sm">
-                <div><span className="text-muted-foreground">SIGNAL_ID:</span> <span>sig_003</span></div>
-                <div><span className="text-muted-foreground">CLIENT:</span> <span>Anonymous // Dubai Marketing Agency</span></div>
-                <div><span className="text-muted-foreground">SYSTEM_DEPLOYED:</span> <span>Post Malone</span></div>
-                <div><span className="text-muted-foreground">IMPACT:</span> <span className="text-primary">"TEXT_CONTENT_OPS — hooks, captions, CTAs, hashtags, briefs — fully automated"</span></div>
-              </div>
-            </div>
-            <div className="pt-4">
+            <div className="pt-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-primary leading-tight">
                 CONTENT_OPS -98%<br />TIME REDUCTION
               </h1>
@@ -56,7 +43,7 @@ const Index = () => {
 
       {/* SECTION 3 — THE PROBLEM */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-        <div className="mb-8">
+        <div className="mb-8 text-center md:text-left">
           <h2 className="text-xl font-bold tracking-tighter mb-1">&gt; PROBLEM_IDENTIFIED</h2>
           <p className="text-primary text-sm">The agency was drowning in content operations</p>
         </div>
@@ -64,7 +51,7 @@ const Index = () => {
           {[
             { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
             { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
-            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context. No record of what performed. Just you, a blank chat window, and another hour gone." },
+            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context. No record of what performed." },
             { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card">
@@ -118,7 +105,7 @@ const Index = () => {
 
       {/* SECTION 5 — THE RESULTS */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-        <h2 className="text-xl font-bold mb-8">&gt; RESULTS_LOG</h2>
+        <h2 className="text-xl font-bold mb-8 text-center md:text-left">&gt; RESULTS_LOG</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="before-card p-6">
             <div className="text-[10px] text-destructive mb-4 font-bold tracking-widest">PRE-DEPLOYMENT</div>
@@ -160,20 +147,17 @@ const Index = () => {
       {/* SECTION 6 — CLIENT SIGNAL */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <div className="terminal-window p-6">
-          <div className="text-muted-foreground mb-4">------- SIGNAL DECODED -------</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-6">
-            <div>SIGNAL_ID: sig_003</div>
-            <div>SOURCE: Anonymous // Dubai Marketing Agency</div>
-            <div className="text-primary">IMPACT: CONTENT_OPS -98%</div>
-          </div>
           <div className="border-l-2 border-primary pl-6 py-2 my-6">
-            <blockquote className="text-xl italic leading-relaxed">
+            <blockquote className="text-xl italic leading-relaxed text-center md:text-left">
               "The bottleneck wasn't our creativity, it was the friction of execution. Unaiza didn't just give us a tool; she gave us our time back. Scaling is now a choice, not a hiring headache."
             </blockquote>
           </div>
-          <div className="space-y-1.5 text-xs text-muted-foreground">
-            <div>Previous monthly spend on content ops: <span className="text-foreground">$4,200+ (Man-hours)</span></div>
-            <div>Current monthly investment: <span className="text-terminal-green">$1,500</span></div>
+          <div className="text-xs text-muted-foreground mt-4 text-center md:text-left">
+            SOURCE: Anonymous // Dubai Marketing Agency
+          </div>
+          <div className="space-y-2 mt-6 text-center md:text-left">
+            <div className="text-base md:text-lg font-semibold">Previous monthly spend on content ops: <span className="text-foreground">$4,200+ (Man-hours)</span></div>
+            <div className="text-base md:text-lg font-semibold">Current monthly investment: <span className="text-terminal-green">$1,500</span></div>
           </div>
         </div>
       </section>
@@ -183,8 +167,7 @@ const Index = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-3">Your agency runs the same playbook.</h2>
         <p className="text-muted-foreground mb-6">We've already built the fix.</p>
         <p className="text-terminal-green italic text-sm md:text-base mb-6 leading-relaxed">
-          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.<br />
-          No pitch. No pressure.
+          &gt; Reply with YES to book a discovery call — we'll see if it's a fit.
         </p>
         <a
           href="https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03"
@@ -199,14 +182,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* TRANSMISSION COMPLETE */}
-      <div className="text-center py-6 text-terminal-green text-xs">
-        autonixlab:~$ transmission.complete // signal deployed successfully
-      </div>
 
       {/* FOOTER */}
       <footer className="max-w-5xl mx-auto py-8 px-6 border-t border-border">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <div>
             <div className="text-primary font-bold mb-1">UNAIZA × POST MALONE</div>
             <div className="text-[10px] text-muted-foreground">Intercepting operational chaos since 2024</div>
