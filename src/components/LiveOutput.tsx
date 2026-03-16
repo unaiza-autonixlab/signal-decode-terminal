@@ -31,11 +31,8 @@ const LiveOutput = () => {
   };
 
   const goTo = useCallback((next: number) => {
-    setFade("out");
-    setTimeout(() => {
-      setActiveIndex(((next % slides.length) + slides.length) % slides.length);
-      setFade("in");
-    }, FADE_MS);
+    setActiveIndex(((next % slides.length) + slides.length) % slides.length);
+  }, []);
   }, []);
 
   useEffect(() => {
