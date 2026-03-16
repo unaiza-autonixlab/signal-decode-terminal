@@ -51,7 +51,7 @@ const Index = () => {
           {[
             { error: "Manual ideation", desc: "Every month started from zero. No system, no structure, no memory of what worked before." },
             { error: "Slide bottleneck", desc: "Dates changed manually. Copy pasted slide by slide. Hours gone in formatting." },
-            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context. No record of what performed. Just you, a blank chat window, and another hour gone." },
+            { error: "Zero content memory", desc: "Every month meant re-explaining the brand from scratch. No saved voice. No context. No record of what performed." },
             { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card">
