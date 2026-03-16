@@ -62,9 +62,9 @@ const LiveOutput = () => {
   const current = slides[activeIndex];
 
   return (
-    <section className="max-w-5xl mx-auto py-16 px-6 border-t border-border">
-      <div className="mb-10 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">&gt; LIVE_OUTPUT</h2>
+    <section className="max-w-5xl mx-auto py-12 px-6 border-t border-border">
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">&gt; LIVE_OUTPUT</h2>
         <p className="text-muted-foreground text-base md:text-lg italic leading-relaxed">
           This is what happens when you trigger the system.
         </p>
