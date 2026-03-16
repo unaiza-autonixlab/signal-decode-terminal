@@ -127,7 +127,7 @@ const Index = () => {
             </ul>
           </div>
         </div>
-        <CtaButton label="Want these numbers?" />
+        <CtaButton label="Want these numbers? Reply YES." />
       </section>
 
       {/* TESTIMONIAL */}
