@@ -7,7 +7,7 @@ import tg3 from "@/assets/tg3.jpg";
 import tg4 from "@/assets/tg4.jpg";
 import tg5 from "@/assets/tg5.jpg";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood";
+const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood/";
 
 const slides = [
   { src: tg1, label: "> step_01: trigger sent via Telegram", maxWidth: "max-w-[480px]" },
