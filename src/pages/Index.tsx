@@ -82,7 +82,7 @@ const Index = () => {
             </div>
           ))}
         </div>
-        <CtaButton label="Sound familiar? Let's fix it." />
+        <CtaButton label="This your agency? Reply YES." />
       </section>
 
       {/* LIVE OUTPUT */}
