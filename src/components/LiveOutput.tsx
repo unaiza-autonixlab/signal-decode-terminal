@@ -20,128 +20,150 @@ const slides = [
 const FADE_MS = 600;
 const HOLD_MS = 3000;
 
-const wrap = (i: number) => ((i % slides.length) + slides.length) % slides.length;
+const wrapIndex = (index: number) => ((index % slides.length) + slides.length) % slides.length;
 
 const LiveOutput = () => {
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [dotIndex, setDotIndex] = useState(0);
-  const [cssOpacity, setCssOpacity] = useState(1);
-  const [useTransition, setUseTransition] = useState(false);
+  const [opacity, setOpacity] = useState(0);
   const [playing, setPlaying] = useState(true);
 
-  // All mutable state in refs to avoid stale closures
+  const visibleIndexRef = useRef(0);
   const playingRef = useRef(true);
-  const busyRef = useRef(false);
-  const currentRef = useRef(0);
+  const transitioningRef = useRef(true);
+  const pendingIndexRef = useRef<number | null>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const clearAllTimers = () => {
+  const clearTimers = () => {
     timersRef.current.forEach(clearTimeout);
     timersRef.current = [];
   };
 
-  const addTimer = (fn: () => void, ms: number) => {
-    const id = setTimeout(fn, ms);
-    timersRef.current.push(id);
-    return id;
+  const addTimer = (callback: () => void, delay: number) => {
+    const timer = setTimeout(callback, delay);
+    timersRef.current.push(timer);
+    return timer;
   };
 
-  // Core transition: fade out → swap → fade in, then call onDone
-  const runTransition = (targetIdx: number, onDone: () => void) => {
-    const idx = wrap(targetIdx);
-    if (idx === currentRef.current) {
-      onDone();
-      return;
-    }
-
-    busyRef.current = true;
-    setDotIndex(idx); // dots update immediately
-    setUseTransition(true);
-    setCssOpacity(0); // fade out
+  const scheduleNextAutoplay = () => {
+    if (!playingRef.current || transitioningRef.current) return;
 
     addTimer(() => {
-      // Fade-out complete. Swap image while at opacity 0.
-      currentRef.current = idx;
-      setVisibleIndex(idx);
-
-      // Disable transition briefly so the new image renders at opacity 0
-      setUseTransition(false);
-      setCssOpacity(0);
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Now enable transition and fade in
-          setUseTransition(true);
-          setCssOpacity(1);
-
-          addTimer(() => {
-            // Fade-in complete
-            busyRef.current = false;
-            onDone();
-          }, FADE_MS);
-        });
-      });
-    }, FADE_MS);
-  };
-
-  // Schedule next auto-play cycle
-  const scheduleNext = () => {
-    addTimer(() => {
-      if (!playingRef.current) return;
-      runTransition(currentRef.current + 1, () => {
-        if (playingRef.current) scheduleNext();
-      });
+      if (!playingRef.current || transitioningRef.current) return;
+      startTransition(visibleIndexRef.current + 1);
     }, HOLD_MS);
   };
 
-  // Start auto-play on mount
+  const finishTransition = () => {
+    transitioningRef.current = false;
+
+    if (pendingIndexRef.current !== null) {
+      const nextIndex = pendingIndexRef.current;
+      pendingIndexRef.current = null;
+      startTransition(nextIndex);
+      return;
+    }
+
+    if (playingRef.current) {
+      scheduleNextAutoplay();
+    }
+  };
+
+  const startFadeIn = () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setOpacity(1);
+        addTimer(() => {
+          finishTransition();
+        }, FADE_MS);
+      });
+    });
+  };
+
+  const startTransition = (nextIndex: number) => {
+    const targetIndex = wrapIndex(nextIndex);
+
+    if (transitioningRef.current) {
+      pendingIndexRef.current = targetIndex;
+      return;
+    }
+
+    if (targetIndex === visibleIndexRef.current) {
+      if (playingRef.current) {
+        scheduleNextAutoplay();
+      }
+      return;
+    }
+
+    clearTimers();
+    transitioningRef.current = true;
+    pendingIndexRef.current = null;
+    setDotIndex(targetIndex);
+    setOpacity(0);
+
+    addTimer(() => {
+      visibleIndexRef.current = targetIndex;
+      setVisibleIndex(targetIndex);
+      startFadeIn();
+    }, FADE_MS);
+  };
+
   useEffect(() => {
-    scheduleNext();
-    return clearAllTimers;
+    startFadeIn();
+
+    return () => {
+      clearTimers();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle play/pause toggle
-  const handleToggle = () => {
-    const next = !playingRef.current;
-    playingRef.current = next;
-    setPlaying(next);
-    if (next && !busyRef.current) {
-      scheduleNext();
-    }
-  };
-
-  const navigateTo = (targetIdx: number) => {
+  const handleArrow = (direction: number) => {
     playingRef.current = false;
     setPlaying(false);
-    clearAllTimers();
 
-    if (busyRef.current) {
-      // Interrupt: snap to current state instantly, then start new transition
-      busyRef.current = false;
-      setUseTransition(false);
-      setCssOpacity(1);
+    const baseIndex = pendingIndexRef.current ?? visibleIndexRef.current;
+    const targetIndex = wrapIndex(baseIndex + direction);
 
-      requestAnimationFrame(() => {
-        runTransition(targetIdx, () => {});
-      });
-    } else {
-      runTransition(targetIdx, () => {});
+    if (transitioningRef.current) {
+      pendingIndexRef.current = targetIndex;
+      return;
+    }
+
+    startTransition(targetIndex);
+  };
+
+  const handleDot = (index: number) => {
+    playingRef.current = false;
+    setPlaying(false);
+
+    const targetIndex = wrapIndex(index);
+
+    if (transitioningRef.current) {
+      pendingIndexRef.current = targetIndex;
+      setDotIndex(targetIndex);
+      return;
+    }
+
+    startTransition(targetIndex);
+  };
+
+  const handleToggle = () => {
+    const nextPlaying = !playingRef.current;
+    playingRef.current = nextPlaying;
+    setPlaying(nextPlaying);
+
+    clearTimers();
+
+    if (nextPlaying && !transitioningRef.current) {
+      scheduleNextAutoplay();
     }
   };
 
-  const handleArrow = (direction: number) => {
-    navigateTo(currentRef.current + direction);
+  const currentSlide = slides[visibleIndex];
+  const fadeStyle = {
+    opacity,
+    transition: `opacity ${FADE_MS}ms ease-in-out`,
   };
-
-  const handleDot = (i: number) => {
-    navigateTo(i);
-  };
-
-  const slide = slides[visibleIndex];
-  const style: React.CSSProperties = useTransition
-    ? { opacity: cssOpacity, transition: `opacity ${FADE_MS}ms ease-in-out` }
-    : { opacity: cssOpacity };
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
@@ -163,9 +185,9 @@ const LiveOutput = () => {
         </button>
         <span
           className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left"
-          style={style}
+          style={fadeStyle}
         >
-          {slide.label}
+          {currentSlide.label}
         </span>
       </div>
 
@@ -181,10 +203,10 @@ const LiveOutput = () => {
 
         <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
-            src={slide.src}
-            alt={slide.label}
+            src={currentSlide.src}
+            alt={currentSlide.label}
             className="w-full h-full object-contain"
-            style={style}
+            style={fadeStyle}
           />
         </div>
 
