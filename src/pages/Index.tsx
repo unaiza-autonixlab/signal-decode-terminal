@@ -32,9 +32,12 @@ const Index = () => {
       <header className="max-w-5xl mx-auto pt-10 pb-2 px-6">
         <TerminalWindow>
           <div className="py-6 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-primary leading-tight">
-              CONTENT_OPS −98%<br />TIME REDUCTION
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
+              20 Hours of Content Work.<br />Done in 60 Seconds.
             </h1>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto leading-relaxed">
+              A done-for-you AI system that generates your clients' monthly content calendars automatically.
+            </p>
           </div>
         </TerminalWindow>
       </header>
@@ -73,7 +76,7 @@ const Index = () => {
             { error: "Scaling ceiling", desc: "Taking on new clients meant more people. More people meant more cost." },
           ].map((problem) => (
             <div key={problem.error} className="problem-card text-center sm:text-left">
-              <div className="text-[10px] text-destructive mb-3 font-bold tracking-widest">[ERROR] {problem.error}</div>
+              <div className="text-[10px] text-destructive mb-3 font-bold tracking-widest">[PROBLEM] {problem.error}</div>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{problem.desc}</p>
             </div>
           ))}
