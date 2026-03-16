@@ -23,9 +23,7 @@ const HOLD_MS = 3000;
 const wrap = (i: number) => ((i % slides.length) + slides.length) % slides.length;
 
 const LiveOutput = () => {
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [dotIndex, setDotIndex] = useState(0);
-  const [groupOpacity, setGroupOpacity] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
 
   const currentRef = useRef(0);
@@ -45,7 +43,6 @@ const LiveOutput = () => {
     return t;
   }, []);
 
-  // Pure timeout-based sequencing — no transitionend events (unreliable across browsers)
   const runTransition = useCallback((target: number) => {
     if (transitioningRef.current) {
       pendingRef.current = target;
@@ -60,34 +57,20 @@ const LiveOutput = () => {
     pendingRef.current = null;
     clearTimers();
 
-    // Phase 1: fade OUT — wait exactly FADE_MS before touching content
-    setGroupOpacity(0);
+    currentRef.current = target;
+    setActiveIndex(target);
 
+    // Wait for CSS crossfade to complete before allowing next transition
     addTimer(() => {
-      // Content is now guaranteed invisible — safe to swap
-      currentRef.current = target;
-      setDisplayIndex(target);
-      setDotIndex(target);
+      transitioningRef.current = false;
 
-      // Phase 2: let React render the new content, then fade IN
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setGroupOpacity(1);
-
-          // Wait for fade IN to complete before allowing next transition
-          addTimer(() => {
-            transitioningRef.current = false;
-
-            if (pendingRef.current !== null) {
-              const next = pendingRef.current;
-              pendingRef.current = null;
-              runTransition(next);
-            } else if (playingRef.current) {
-              scheduleNext();
-            }
-          }, FADE_MS);
-        });
-      });
+      if (pendingRef.current !== null) {
+        const next = pendingRef.current;
+        pendingRef.current = null;
+        runTransition(next);
+      } else if (playingRef.current) {
+        scheduleNext();
+      }
     }, FADE_MS);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -100,18 +83,9 @@ const LiveOutput = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Mount: fade in first slide
+  // Mount: start autoplay
   useEffect(() => {
-    transitioningRef.current = true;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setGroupOpacity(1);
-        addTimer(() => {
-          transitioningRef.current = false;
-          if (playingRef.current) scheduleNext();
-        }, FADE_MS);
-      });
-    });
+    if (playingRef.current) scheduleNext();
     return () => clearTimers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -156,11 +130,7 @@ const LiveOutput = () => {
     }
   };
 
-  const slide = slides[displayIndex];
-  const groupStyle = {
-    opacity: groupOpacity,
-    transition: `opacity ${FADE_MS}ms ease-in-out`,
-  };
+  const slide = slides[activeIndex];
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
@@ -171,51 +141,55 @@ const LiveOutput = () => {
         </p>
       </div>
 
-      {/* Single animated group: toggle + label + image */}
-      <div style={groupStyle}>
-        {/* Play/Pause + Step label */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <button
-            onClick={handleToggle}
-            aria-label={playing ? "Pause" : "Play"}
-            className="text-terminal-green hover:text-primary transition-colors"
-          >
-            {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-          </button>
-          <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left">
-            {slide.label}
-          </span>
-        </div>
-
-        {/* Carousel image */}
-        <div className="flex items-center justify-center gap-3 md:gap-6">
-          <button
-            onClick={() => handleArrow(-1)}
-            aria-label="Previous screenshot"
-            className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
-          >
-            <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
-          </button>
-
-          <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
-            <img
-              src={slide.src}
-              alt={slide.label}
-              className="w-full h-full object-contain"
-            />
-          </div>
-
-          <button
-            onClick={() => handleArrow(1)}
-            aria-label="Next screenshot"
-            className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
-          >
-            <ChevronRight className="w-7 h-7 md:w-8 md:h-8" />
-          </button>
-        </div>
+      {/* Play/Pause + Step label */}
+      <div className="flex items-center justify-center gap-3 mb-6">
+        <button
+          onClick={handleToggle}
+          aria-label={playing ? "Pause" : "Play"}
+          className="text-terminal-green hover:text-primary transition-colors"
+        >
+          {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+        </button>
+        <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left">
+          {slide.label}
+        </span>
       </div>
 
-      {/* Dots — outside fade group */}
+      {/* Carousel image — all 5 stacked, crossfade via individual opacity */}
+      <div className="flex items-center justify-center gap-3 md:gap-6">
+        <button
+          onClick={() => handleArrow(-1)}
+          aria-label="Previous screenshot"
+          className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
+        >
+          <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
+        </button>
+
+        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] overflow-hidden rounded-sm relative">
+          {slides.map((s, i) => (
+            <img
+              key={i}
+              src={s.src}
+              alt={s.label}
+              className="absolute inset-0 w-full h-full object-contain"
+              style={{
+                opacity: i === activeIndex ? 1 : 0,
+                transition: `opacity ${FADE_MS}ms ease-in-out`,
+              }}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={() => handleArrow(1)}
+          aria-label="Next screenshot"
+          className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-1"
+        >
+          <ChevronRight className="w-7 h-7 md:w-8 md:h-8" />
+        </button>
+      </div>
+
+      {/* Dots */}
       <div className="flex justify-center gap-2.5 mt-6">
         {slides.map((_, i) => (
           <button
@@ -223,7 +197,7 @@ const LiveOutput = () => {
             onClick={() => handleDot(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${
-              i === dotIndex ? "bg-primary" : "bg-muted-foreground/30"
+              i === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
             }`}
           />
         ))}
