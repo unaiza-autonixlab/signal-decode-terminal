@@ -1,6 +1,6 @@
 import TerminalWindow from "@/components/TerminalWindow";
 import CountUp from "@/components/CountUp";
-import TypingAnimation from "@/components/TypingAnimation";
+
 import SystemProfile from "@/components/SystemProfile";
 import LiveOutput from "@/components/LiveOutput";
 
