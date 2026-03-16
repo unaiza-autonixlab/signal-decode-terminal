@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 import tg1 from "@/assets/tg1.jpg";
 import tg2 from "@/assets/tg2.jpg";
@@ -63,23 +63,21 @@ const LiveOutput = () => {
 
   return (
     <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-      {/* Header row */}
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-bold">&gt; LIVE_OUTPUT</h2>
-        <button
-          onClick={() => setPlaying((p) => !p)}
-          className="text-xs font-mono text-terminal-green hover:brightness-125 transition-all"
-        >
-          [{playing ? "PLAYING" : "PAUSED"}]
-        </button>
-      </div>
+      <h2 className="text-xl font-bold mb-2 text-center">&gt; LIVE_OUTPUT</h2>
 
       <p className="text-muted-foreground text-base md:text-lg italic text-center mb-10 leading-relaxed">
         This is what happens when you trigger the system.
       </p>
 
-      {/* Step label */}
-      <div className="text-center mb-4">
+      {/* Play/Pause + Step label */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <button
+          onClick={() => setPlaying((p) => !p)}
+          aria-label={playing ? "Pause" : "Play"}
+          className="text-terminal-green hover:text-primary transition-colors"
+        >
+          {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+        </button>
         <span className="text-sm md:text-base font-mono text-terminal-green tracking-wide">
           {current.label}
         </span>
