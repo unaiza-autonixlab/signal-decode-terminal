@@ -6,7 +6,7 @@ import tg2 from "@/assets/tg2.jpg";
 import tg3 from "@/assets/tg3.jpg";
 import tg4 from "@/assets/tg4.jpg";
 
-const CALENDLY_URL = "https://calendly.com/unaiza-autonixlab/discovery-call?month=2026-03";
+const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
 
 const slides = [
   { src: tg1, label: "> step_01: trigger sent via Telegram", maxWidth: "max-w-[480px]" },
