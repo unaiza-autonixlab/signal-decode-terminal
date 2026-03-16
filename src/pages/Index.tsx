@@ -155,7 +155,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <CtaButton label="Get the system" />
+        <CtaButton label="Ready to get your time back? Reply YES." />
       </section>
 
       {/* FINAL CTA */}
