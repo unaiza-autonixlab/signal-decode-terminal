@@ -5,14 +5,16 @@ import tg1 from "@/assets/tg1.jpg";
 import tg2 from "@/assets/tg2.jpg";
 import tg3 from "@/assets/tg3.jpg";
 import tg4 from "@/assets/tg4.jpg";
+import tg5 from "@/assets/tg5.jpg";
 
-const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
+const LINKEDIN_URL = "https://www.linkedin.com/in/unaiza-masood";
 
 const slides = [
   { src: tg1, label: "> step_01: trigger sent via Telegram", maxWidth: "max-w-[480px]" },
   { src: tg2, label: "> step_02: system initializing...", maxWidth: "max-w-[480px]" },
   { src: tg3, label: "> step_03: content ready for approval", maxWidth: "max-w-[480px]" },
-  { src: tg4, label: "> step_04: output — post 1 of 13", maxWidth: "max-w-[700px]" },
+  { src: tg4, label: "> step_04: output — branded calendar", maxWidth: "max-w-[700px]" },
+  { src: tg5, label: "> step_05: output — week 2 detail view", maxWidth: "max-w-[700px]" },
 ];
 
 const DISPLAY_MS = 3000;
