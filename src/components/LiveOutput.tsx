@@ -18,7 +18,7 @@ const slides = [
 ];
 
 const DISPLAY_MS = 3000;
-const FADE_MS = 100;
+const FADE_MS = 0;
 
 const LiveOutput = () => {
   const [activeIndex, setActiveIndex] = useState(0);
