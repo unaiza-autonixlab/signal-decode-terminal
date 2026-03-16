@@ -9,20 +9,7 @@ const Index = () => {
       <header className="max-w-5xl mx-auto pt-10 px-6">
         <TerminalWindow>
           <div className="space-y-3">
-            <div className="flex items-center text-sm">
-              <span className="text-terminal-green">unaiza:~$</span>
-              <span className="ml-2">cat /var/log/signals/post-malone.log</span>
-            </div>
-            <div className="pt-2">
-              <div className="text-muted-foreground">------- SIGNAL DECODED -------</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-3 text-sm">
-                <div><span className="text-muted-foreground">SIGNAL_ID:</span> <span>sig_003</span></div>
-                <div><span className="text-muted-foreground">CLIENT:</span> <span>Anonymous // Dubai Marketing Agency</span></div>
-                <div><span className="text-muted-foreground">SYSTEM_DEPLOYED:</span> <span>Post Malone</span></div>
-                <div><span className="text-muted-foreground">IMPACT:</span> <span className="text-primary">"TEXT_CONTENT_OPS — hooks, captions, CTAs, hashtags, briefs — fully automated"</span></div>
-              </div>
-            </div>
-            <div className="pt-4">
+            <div className="pt-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-primary leading-tight">
                 CONTENT_OPS -98%<br />TIME REDUCTION
               </h1>
