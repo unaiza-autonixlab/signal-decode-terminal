@@ -145,9 +145,9 @@ const Index = () => {
               <div className="text-xs text-muted-foreground mt-2">Man-hours on content ops</div>
             </div>
             <div className="bg-terminal-green/5 border border-terminal-green/20 p-5 text-center">
-              <div className="text-[10px] text-terminal-green font-bold tracking-widest mb-2">AFTER</div>
-              <div className="text-3xl md:text-4xl font-bold text-terminal-green">$1,500<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
-              <div className="text-xs text-muted-foreground mt-2">Full automation investment</div>
+              <div className="text-[10px] text-terminal-green font-bold tracking-widest mb-2">SAVINGS</div>
+              <div className="text-3xl md:text-4xl font-bold text-terminal-green">$2,700<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
+              <div className="text-xs text-muted-foreground mt-2">Redirected from content ops</div>
             </div>
           </div>
         </div>
