@@ -33,7 +33,6 @@ const LiveOutput = () => {
   const transitioningRef = useRef(false);
   const pendingRef = useRef<number | null>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const groupRef = useRef<HTMLDivElement>(null);
 
   const clearTimers = useCallback(() => {
     timersRef.current.forEach(clearTimeout);
@@ -46,25 +45,7 @@ const LiveOutput = () => {
     return t;
   }, []);
 
-  const onTransitionEnd = useCallback((cb: () => void) => {
-    const el = groupRef.current;
-    if (!el) { cb(); return; }
-    let fired = false;
-    const handler = (e: TransitionEvent) => {
-      if (e.propertyName !== "opacity" || e.target !== el) return;
-      fired = true;
-      el.removeEventListener("transitionend", handler);
-      cb();
-    };
-    el.addEventListener("transitionend", handler);
-    addTimer(() => {
-      if (!fired) {
-        el.removeEventListener("transitionend", handler);
-        cb();
-      }
-    }, FADE_MS + 50);
-  }, [addTimer]);
-
+  // Pure timeout-based sequencing — no transitionend events (unreliable across browsers)
   const runTransition = useCallback((target: number) => {
     if (transitioningRef.current) {
       pendingRef.current = target;
@@ -79,20 +60,22 @@ const LiveOutput = () => {
     pendingRef.current = null;
     clearTimers();
 
-    // Phase 1: fade out
+    // Phase 1: fade OUT — wait exactly FADE_MS before touching content
     setGroupOpacity(0);
 
-    onTransitionEnd(() => {
-      // Swap content while fully invisible
+    addTimer(() => {
+      // Content is now guaranteed invisible — safe to swap
       currentRef.current = target;
       setDisplayIndex(target);
       setDotIndex(target);
 
-      // Phase 2: fade in after React renders new content
+      // Phase 2: let React render the new content, then fade IN
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setGroupOpacity(1);
-          onTransitionEnd(() => {
+
+          // Wait for fade IN to complete before allowing next transition
+          addTimer(() => {
             transitioningRef.current = false;
 
             if (pendingRef.current !== null) {
@@ -102,10 +85,10 @@ const LiveOutput = () => {
             } else if (playingRef.current) {
               scheduleNext();
             }
-          });
+          }, FADE_MS);
         });
       });
-    });
+    }, FADE_MS);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -123,10 +106,10 @@ const LiveOutput = () => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setGroupOpacity(1);
-        onTransitionEnd(() => {
+        addTimer(() => {
           transitioningRef.current = false;
           if (playingRef.current) scheduleNext();
-        });
+        }, FADE_MS);
       });
     });
     return () => clearTimers();
@@ -140,7 +123,6 @@ const LiveOutput = () => {
 
     const base = pendingRef.current ?? currentRef.current;
     const target = wrap(base + dir);
-    setDotIndex(target);
 
     if (transitioningRef.current) {
       pendingRef.current = target;
@@ -155,7 +137,6 @@ const LiveOutput = () => {
     clearTimers();
 
     const target = wrap(i);
-    setDotIndex(target);
 
     if (transitioningRef.current) {
       pendingRef.current = target;
@@ -191,7 +172,7 @@ const LiveOutput = () => {
       </div>
 
       {/* Single animated group: toggle + label + image */}
-      <div ref={groupRef} style={groupStyle}>
+      <div style={groupStyle}>
         {/* Play/Pause + Step label */}
         <div className="flex items-center justify-center gap-3 mb-6">
           <button
