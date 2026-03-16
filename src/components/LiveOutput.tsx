@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 import tg1 from "@/assets/tg1.jpg";
@@ -20,217 +20,128 @@ const slides = [
 const FADE_MS = 600;
 const HOLD_MS = 3000;
 
-type Phase = "visible" | "fading-out" | "fading-in";
+const wrap = (i: number) => ((i % slides.length) + slides.length) % slides.length;
 
 const LiveOutput = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [shownIndex, setShownIndex] = useState(0); // which image is actually rendered
+  const [visibleIndex, setVisibleIndex] = useState(0);
   const [dotIndex, setDotIndex] = useState(0);
-  const [phase, setPhase] = useState<Phase>("visible");
+  const [cssOpacity, setCssOpacity] = useState(1);
+  const [useTransition, setUseTransition] = useState(false);
   const [playing, setPlaying] = useState(true);
 
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pendingRef = useRef<number | null>(null);
-  const playingRef = useRef(playing);
-  const currentIndexRef = useRef(currentIndex);
-  const phaseRef = useRef(phase);
+  // All mutable state in refs to avoid stale closures
+  const playingRef = useRef(true);
+  const busyRef = useRef(false);
+  const currentRef = useRef(0);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  playingRef.current = playing;
-  currentIndexRef.current = currentIndex;
-  phaseRef.current = phase;
+  const clearAllTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
 
-  const clearTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
+  const addTimer = (fn: () => void, ms: number) => {
+    const id = setTimeout(fn, ms);
+    timersRef.current.push(id);
+    return id;
+  };
 
-  const wrap = (i: number) => ((i % slides.length) + slides.length) % slides.length;
-
-  // Start the fade-out → swap → fade-in → hold cycle for a target index
-  const goTo = useCallback((targetIdx: number) => {
+  // Core transition: fade out → swap → fade in, then call onDone
+  const runTransition = (targetIdx: number, onDone: () => void) => {
     const idx = wrap(targetIdx);
-
-    // If we're mid-transition, queue it
-    if (phaseRef.current !== "visible") {
-      pendingRef.current = idx;
+    if (idx === currentRef.current) {
+      onDone();
       return;
     }
 
-    if (idx === currentIndexRef.current) return;
-
-    clearTimer();
+    busyRef.current = true;
     setDotIndex(idx); // dots update immediately
-    setPhase("fading-out");
+    setUseTransition(true);
+    setCssOpacity(0); // fade out
 
-    // After fade-out completes, swap image and fade in
-    timerRef.current = setTimeout(() => {
-      setShownIndex(idx);
-      setCurrentIndex(idx);
+    addTimer(() => {
+      // Fade-out complete. Swap image while at opacity 0.
+      currentRef.current = idx;
+      setVisibleIndex(idx);
 
-      // Force a paint at opacity 0 with new image before triggering fade-in
+      // Disable transition briefly so the new image renders at opacity 0
+      setUseTransition(false);
+      setCssOpacity(0);
+
       requestAnimationFrame(() => {
-        setPhase("fading-in");
+        requestAnimationFrame(() => {
+          // Now enable transition and fade in
+          setUseTransition(true);
+          setCssOpacity(1);
 
-        // After fade-in completes
-        timerRef.current = setTimeout(() => {
-          setPhase("visible");
-
-          // Check for pending navigation
-          if (pendingRef.current !== null) {
-            const next = pendingRef.current;
-            pendingRef.current = null;
-            // Use setTimeout(0) to let state settle
-            setTimeout(() => {
-              // Re-check if still valid
-              if (next !== wrap(currentIndexRef.current + 0)) {
-                // trigger goTo for pending
-                setDotIndex(next);
-                setPhase("fading-out");
-                timerRef.current = setTimeout(() => {
-                  setShownIndex(next);
-                  setCurrentIndex(next);
-                  requestAnimationFrame(() => {
-                    setPhase("fading-in");
-                    timerRef.current = setTimeout(() => {
-                      setPhase("visible");
-                    }, FADE_MS);
-                  });
-                }, FADE_MS);
-              }
-            }, 0);
-            return;
-          }
-
-          // If playing, schedule next slide after hold
-          if (playingRef.current) {
-            timerRef.current = setTimeout(() => {
-              const next = wrap(currentIndexRef.current + 1);
-              setDotIndex(next);
-              setPhase("fading-out");
-
-              timerRef.current = setTimeout(() => {
-                setShownIndex(next);
-                setCurrentIndex(next);
-                requestAnimationFrame(() => {
-                  setPhase("fading-in");
-                  timerRef.current = setTimeout(() => {
-                    setPhase("visible");
-                  }, FADE_MS);
-                });
-              }, FADE_MS);
-            }, HOLD_MS);
-          }
-        }, FADE_MS);
+          addTimer(() => {
+            // Fade-in complete
+            busyRef.current = false;
+            onDone();
+          }, FADE_MS);
+        });
       });
     }, FADE_MS);
-  }, [clearTimer]);
+  };
 
-  // Auto-play: schedule from "visible" phase
+  // Schedule next auto-play cycle
+  const scheduleNext = () => {
+    addTimer(() => {
+      if (!playingRef.current) return;
+      runTransition(currentRef.current + 1, () => {
+        if (playingRef.current) scheduleNext();
+      });
+    }, HOLD_MS);
+  };
+
+  // Start auto-play on mount
   useEffect(() => {
-    if (playing && phase === "visible") {
-      clearTimer();
-      timerRef.current = setTimeout(() => {
-        const next = wrap(currentIndexRef.current + 1);
-        setDotIndex(next);
-        setPhase("fading-out");
-
-        timerRef.current = setTimeout(() => {
-          setShownIndex(next);
-          setCurrentIndex(next);
-          requestAnimationFrame(() => {
-            setPhase("fading-in");
-            timerRef.current = setTimeout(() => {
-              setPhase("visible");
-            }, FADE_MS);
-          });
-        }, FADE_MS);
-      }, HOLD_MS);
-    }
+    scheduleNext();
+    return clearAllTimers;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing, phase]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return clearTimer;
-  }, [clearTimer]);
-
-  const handleArrow = useCallback((direction: number) => {
-    setPlaying(false);
-    clearTimer();
-    pendingRef.current = null;
-
-    if (phaseRef.current !== "visible") {
-      // If mid-transition, force complete it instantly then navigate
-      const target = wrap(currentIndexRef.current + direction);
-      // Snap current transition to end
-      setPhase("visible");
-      // Schedule the new transition on next tick
-      setTimeout(() => {
-        setDotIndex(target);
-        setPhase("fading-out");
-        timerRef.current = setTimeout(() => {
-          setShownIndex(target);
-          setCurrentIndex(target);
-          requestAnimationFrame(() => {
-            setPhase("fading-in");
-            timerRef.current = setTimeout(() => {
-              setPhase("visible");
-            }, FADE_MS);
-          });
-        }, FADE_MS);
-      }, 0);
-      return;
-    }
-
-    goTo(currentIndexRef.current + direction);
-  }, [clearTimer, goTo]);
-
-  const handleDot = useCallback((i: number) => {
-    setPlaying(false);
-    clearTimer();
-    pendingRef.current = null;
-
-    if (phaseRef.current !== "visible") {
-      setPhase("visible");
-      setTimeout(() => {
-        setDotIndex(i);
-        setPhase("fading-out");
-        timerRef.current = setTimeout(() => {
-          setShownIndex(i);
-          setCurrentIndex(i);
-          requestAnimationFrame(() => {
-            setPhase("fading-in");
-            timerRef.current = setTimeout(() => {
-              setPhase("visible");
-            }, FADE_MS);
-          });
-        }, FADE_MS);
-      }, 0);
-      return;
-    }
-
-    goTo(i);
-  }, [clearTimer, goTo]);
-
-  const handleToggle = useCallback(() => {
-    setPlaying(p => !p);
   }, []);
 
-  const opacity = phase === "fading-out" ? 0 : phase === "fading-in" ? 1 : 1;
-  // For fading-in, we need opacity to transition FROM 0 TO 1.
-  // The trick: when we set phase to "fading-in", shownIndex just changed and
-  // on the previous render it was at opacity 0 (end of fading-out).
-  // We use a separate state to track the CSS opacity target.
-  const cssOpacity = phase === "fading-out" ? 0 : 1;
-  const transitionStyle = phase === "visible"
-    ? { opacity: 1, transition: "none" }
-    : { opacity: cssOpacity, transition: `opacity ${FADE_MS}ms ease-in-out` };
+  // Handle play/pause toggle
+  const handleToggle = () => {
+    const next = !playingRef.current;
+    playingRef.current = next;
+    setPlaying(next);
+    if (next && !busyRef.current) {
+      scheduleNext();
+    }
+  };
 
-  const displaySlide = slides[shownIndex];
-  // Label shows the target slide during fade-in, current during fade-out
-  const labelSlide = phase === "fading-out" ? slides[shownIndex] : slides[shownIndex];
+  const navigateTo = (targetIdx: number) => {
+    playingRef.current = false;
+    setPlaying(false);
+    clearAllTimers();
+
+    if (busyRef.current) {
+      // Interrupt: snap to current state instantly, then start new transition
+      busyRef.current = false;
+      setUseTransition(false);
+      setCssOpacity(1);
+
+      requestAnimationFrame(() => {
+        runTransition(targetIdx, () => {});
+      });
+    } else {
+      runTransition(targetIdx, () => {});
+    }
+  };
+
+  const handleArrow = (direction: number) => {
+    navigateTo(currentRef.current + direction);
+  };
+
+  const handleDot = (i: number) => {
+    navigateTo(i);
+  };
+
+  const slide = slides[visibleIndex];
+  const style: React.CSSProperties = useTransition
+    ? { opacity: cssOpacity, transition: `opacity ${FADE_MS}ms ease-in-out` }
+    : { opacity: cssOpacity };
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
@@ -252,9 +163,9 @@ const LiveOutput = () => {
         </button>
         <span
           className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left"
-          style={transitionStyle}
+          style={style}
         >
-          {labelSlide.label}
+          {slide.label}
         </span>
       </div>
 
@@ -270,10 +181,10 @@ const LiveOutput = () => {
 
         <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
-            src={displaySlide.src}
-            alt={displaySlide.label}
+            src={slide.src}
+            alt={slide.label}
             className="w-full h-full object-contain"
-            style={transitionStyle}
+            style={style}
           />
         </div>
 
