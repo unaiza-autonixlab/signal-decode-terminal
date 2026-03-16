@@ -94,7 +94,7 @@ const LiveOutput = () => {
           <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" />
         </button>
 
-        <div className={`w-full ${current.mobileMax} ${current.desktopMax} mx-auto`}>
+        <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto">
           <img
             src={current.src}
             alt={current.label}
