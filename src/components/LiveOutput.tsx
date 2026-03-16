@@ -63,16 +63,7 @@ const LiveOutput = () => {
 
   return (
     <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
-      {/* Header row */}
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-bold">&gt; LIVE_OUTPUT</h2>
-        <button
-          onClick={() => setPlaying((p) => !p)}
-          className="text-xs font-mono text-terminal-green hover:brightness-125 transition-all"
-        >
-          [{playing ? "PLAYING" : "PAUSED"}]
-        </button>
-      </div>
+      <h2 className="text-xl font-bold mb-2 text-center">&gt; LIVE_OUTPUT</h2>
 
       <p className="text-muted-foreground text-base md:text-lg italic text-center mb-10 leading-relaxed">
         This is what happens when you trigger the system.
