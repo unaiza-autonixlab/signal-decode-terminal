@@ -48,11 +48,13 @@ const LiveOutput = () => {
   }, [activeIndex, playing, fade, goTo]);
 
   const handlePrev = () => {
+    setPlaying(false);
     clearTimer();
     goTo(activeIndex - 1);
   };
 
   const handleNext = () => {
+    setPlaying(false);
     clearTimer();
     goTo(activeIndex + 1);
   };
