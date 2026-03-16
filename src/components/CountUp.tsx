@@ -49,7 +49,7 @@ const CountUp = ({ target, suffix = "", prefix = "", from, duration = 1500 }: Co
 
   return (
     <div ref={ref} className="text-3xl md:text-4xl font-bold text-primary mb-2 tabular-nums leading-tight">
-      {value}{suffix}
+      {prefix}{value.toLocaleString()}{suffix}
     </div>
   );
 };
