@@ -85,12 +85,6 @@ const Index = () => {
       {/* SECTION 4 — THE SOLUTION / TERMINAL DEPLOY */}
       <section className="max-w-5xl mx-auto py-14 px-6 border-t border-border">
         <div className="terminal-window rounded-lg overflow-hidden p-6 md:p-8">
-          <div className="mb-6 text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold mb-1">
-</h2>
-            <p className="text-muted-foreground text-base">
-</p>
-          </div>
           <div className="overflow-x-auto">
             <TypingAnimation />
           </div>
