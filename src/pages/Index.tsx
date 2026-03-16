@@ -8,7 +8,7 @@ const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
 const CtaButton = ({ label }: { label: string }) => (
   <div className="text-center mt-12">
     <a
-      href={CALENDLY_URL}
+      href={LINKEDIN_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 font-bold hover:brightness-110 transition-all text-base tracking-wide"
