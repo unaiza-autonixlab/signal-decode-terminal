@@ -10,11 +10,11 @@ import tg5 from "@/assets/tg5.jpg";
 const LINKEDIN_URL = "https://linkedin.com/in/unaiza-masood";
 
 const slides = [
-  { src: tg1, label: "> step_01: trigger sent via Telegram", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[220px]" },
-  { src: tg2, label: "> step_02: system initializing...", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[220px]" },
-  { src: tg3, label: "> step_03: content ready for approval", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[220px]" },
-  { src: tg4, label: "> step_04: output — branded calendar", mobileMax: "max-w-[700px]", desktopMax: "md:max-w-[320px]" },
-  { src: tg5, label: "> step_05: output — week 2 detail view", mobileMax: "max-w-[700px]", desktopMax: "md:max-w-[320px]" },
+  { src: tg1, label: "> step_01: trigger sent via Telegram", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[180px]" },
+  { src: tg2, label: "> step_02: system initializing...", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[180px]" },
+  { src: tg3, label: "> step_03: content ready for approval", mobileMax: "max-w-[480px]", desktopMax: "md:max-w-[180px]" },
+  { src: tg4, label: "> step_04: output — branded calendar", mobileMax: "max-w-[700px]", desktopMax: "md:max-w-[260px]" },
+  { src: tg5, label: "> step_05: output — week 2 detail view", mobileMax: "max-w-[700px]", desktopMax: "md:max-w-[260px]" },
 ];
 
 const DISPLAY_MS = 3000;
