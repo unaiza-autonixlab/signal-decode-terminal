@@ -20,97 +20,217 @@ const slides = [
 const FADE_MS = 600;
 const HOLD_MS = 3000;
 
+type Phase = "visible" | "fading-out" | "fading-in";
+
 const LiveOutput = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [opacity, setOpacity] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [shownIndex, setShownIndex] = useState(0); // which image is actually rendered
+  const [dotIndex, setDotIndex] = useState(0);
+  const [phase, setPhase] = useState<Phase>("visible");
   const [playing, setPlaying] = useState(true);
-  const [transitioning, setTransitioning] = useState(false);
+
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingRef = useRef<number | null>(null);
   const playingRef = useRef(playing);
+  const currentIndexRef = useRef(currentIndex);
+  const phaseRef = useRef(phase);
 
   playingRef.current = playing;
+  currentIndexRef.current = currentIndex;
+  phaseRef.current = phase;
 
-  const clearTimer = () => {
+  const clearTimer = useCallback(() => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-  };
+  }, []);
 
-  const transitionTo = useCallback((nextIndex: number) => {
-    if (transitioning) return;
-    const idx = ((nextIndex % slides.length) + slides.length) % slides.length;
-    if (idx === displayIndex) return;
+  const wrap = (i: number) => ((i % slides.length) + slides.length) % slides.length;
 
-    setTransitioning(true);
-    setActiveIndex(idx); // dots update immediately
+  // Start the fade-out → swap → fade-in → hold cycle for a target index
+  const goTo = useCallback((targetIdx: number) => {
+    const idx = wrap(targetIdx);
 
-    // Fade out current
-    setOpacity(0);
+    // If we're mid-transition, queue it
+    if (phaseRef.current !== "visible") {
+      pendingRef.current = idx;
+      return;
+    }
 
+    if (idx === currentIndexRef.current) return;
+
+    clearTimer();
+    setDotIndex(idx); // dots update immediately
+    setPhase("fading-out");
+
+    // After fade-out completes, swap image and fade in
     timerRef.current = setTimeout(() => {
-      // Swap image while invisible
-      setDisplayIndex(idx);
+      setShownIndex(idx);
+      setCurrentIndex(idx);
 
-      // Small rAF to ensure the browser paints opacity:0 with new image before fading in
+      // Force a paint at opacity 0 with new image before triggering fade-in
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Fade in new
-          setOpacity(1);
+        setPhase("fading-in");
 
-          timerRef.current = setTimeout(() => {
-            setTransitioning(false);
-            // If playing, schedule next after hold
-            if (playingRef.current) {
+        // After fade-in completes
+        timerRef.current = setTimeout(() => {
+          setPhase("visible");
+
+          // Check for pending navigation
+          if (pendingRef.current !== null) {
+            const next = pendingRef.current;
+            pendingRef.current = null;
+            // Use setTimeout(0) to let state settle
+            setTimeout(() => {
+              // Re-check if still valid
+              if (next !== wrap(currentIndexRef.current + 0)) {
+                // trigger goTo for pending
+                setDotIndex(next);
+                setPhase("fading-out");
+                timerRef.current = setTimeout(() => {
+                  setShownIndex(next);
+                  setCurrentIndex(next);
+                  requestAnimationFrame(() => {
+                    setPhase("fading-in");
+                    timerRef.current = setTimeout(() => {
+                      setPhase("visible");
+                    }, FADE_MS);
+                  });
+                }, FADE_MS);
+              }
+            }, 0);
+            return;
+          }
+
+          // If playing, schedule next slide after hold
+          if (playingRef.current) {
+            timerRef.current = setTimeout(() => {
+              const next = wrap(currentIndexRef.current + 1);
+              setDotIndex(next);
+              setPhase("fading-out");
+
               timerRef.current = setTimeout(() => {
-                transitionTo(idx + 1);
-              }, HOLD_MS);
-            }
-          }, FADE_MS);
-        });
+                setShownIndex(next);
+                setCurrentIndex(next);
+                requestAnimationFrame(() => {
+                  setPhase("fading-in");
+                  timerRef.current = setTimeout(() => {
+                    setPhase("visible");
+                  }, FADE_MS);
+                });
+              }, FADE_MS);
+            }, HOLD_MS);
+          }
+        }, FADE_MS);
       });
     }, FADE_MS);
-  }, [transitioning, displayIndex]);
+  }, [clearTimer]);
 
-  // Auto-play: start the first hold timer on mount or when playing resumes
+  // Auto-play: schedule from "visible" phase
   useEffect(() => {
-    if (playing && !transitioning) {
+    if (playing && phase === "visible") {
       clearTimer();
       timerRef.current = setTimeout(() => {
-        transitionTo(activeIndex + 1);
+        const next = wrap(currentIndexRef.current + 1);
+        setDotIndex(next);
+        setPhase("fading-out");
+
+        timerRef.current = setTimeout(() => {
+          setShownIndex(next);
+          setCurrentIndex(next);
+          requestAnimationFrame(() => {
+            setPhase("fading-in");
+            timerRef.current = setTimeout(() => {
+              setPhase("visible");
+            }, FADE_MS);
+          });
+        }, FADE_MS);
       }, HOLD_MS);
     }
-    if (!playing) {
-      // Only clear hold timers, not transition timers
-      if (!transitioning) clearTimer();
-    }
-    return () => {
-      if (!transitioning) clearTimer();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing]);
+  }, [playing, phase]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return clearTimer;
+  }, [clearTimer]);
 
   const handleArrow = useCallback((direction: number) => {
     setPlaying(false);
-    if (transitioning) return;
     clearTimer();
-    const next = activeIndex + direction;
-    transitionTo(next);
-  }, [activeIndex, transitioning, transitionTo]);
+    pendingRef.current = null;
+
+    if (phaseRef.current !== "visible") {
+      // If mid-transition, force complete it instantly then navigate
+      const target = wrap(currentIndexRef.current + direction);
+      // Snap current transition to end
+      setPhase("visible");
+      // Schedule the new transition on next tick
+      setTimeout(() => {
+        setDotIndex(target);
+        setPhase("fading-out");
+        timerRef.current = setTimeout(() => {
+          setShownIndex(target);
+          setCurrentIndex(target);
+          requestAnimationFrame(() => {
+            setPhase("fading-in");
+            timerRef.current = setTimeout(() => {
+              setPhase("visible");
+            }, FADE_MS);
+          });
+        }, FADE_MS);
+      }, 0);
+      return;
+    }
+
+    goTo(currentIndexRef.current + direction);
+  }, [clearTimer, goTo]);
 
   const handleDot = useCallback((i: number) => {
     setPlaying(false);
-    if (transitioning) return;
     clearTimer();
-    transitionTo(i);
-  }, [transitioning, transitionTo]);
+    pendingRef.current = null;
+
+    if (phaseRef.current !== "visible") {
+      setPhase("visible");
+      setTimeout(() => {
+        setDotIndex(i);
+        setPhase("fading-out");
+        timerRef.current = setTimeout(() => {
+          setShownIndex(i);
+          setCurrentIndex(i);
+          requestAnimationFrame(() => {
+            setPhase("fading-in");
+            timerRef.current = setTimeout(() => {
+              setPhase("visible");
+            }, FADE_MS);
+          });
+        }, FADE_MS);
+      }, 0);
+      return;
+    }
+
+    goTo(i);
+  }, [clearTimer, goTo]);
 
   const handleToggle = useCallback(() => {
     setPlaying(p => !p);
   }, []);
 
-  const current = slides[displayIndex];
+  const opacity = phase === "fading-out" ? 0 : phase === "fading-in" ? 1 : 1;
+  // For fading-in, we need opacity to transition FROM 0 TO 1.
+  // The trick: when we set phase to "fading-in", shownIndex just changed and
+  // on the previous render it was at opacity 0 (end of fading-out).
+  // We use a separate state to track the CSS opacity target.
+  const cssOpacity = phase === "fading-out" ? 0 : 1;
+  const transitionStyle = phase === "visible"
+    ? { opacity: 1, transition: "none" }
+    : { opacity: cssOpacity, transition: `opacity ${FADE_MS}ms ease-in-out` };
+
+  const displaySlide = slides[shownIndex];
+  // Label shows the target slide during fade-in, current during fade-out
+  const labelSlide = phase === "fading-out" ? slides[shownIndex] : slides[shownIndex];
 
   return (
     <section className="max-w-4xl mx-auto py-14 px-6 border-t border-border">
@@ -132,12 +252,9 @@ const LiveOutput = () => {
         </button>
         <span
           className="text-sm md:text-base font-mono text-terminal-green tracking-wide min-w-[320px] text-left"
-          style={{
-            opacity,
-            transition: `opacity ${FADE_MS}ms ease-in-out`,
-          }}
+          style={transitionStyle}
         >
-          {current.label}
+          {labelSlide.label}
         </span>
       </div>
 
@@ -153,13 +270,10 @@ const LiveOutput = () => {
 
         <div className="w-full max-w-[480px] md:max-w-[240px] mx-auto aspect-[9/16] flex items-center justify-center overflow-hidden rounded-sm">
           <img
-            src={current.src}
-            alt={current.label}
+            src={displaySlide.src}
+            alt={displaySlide.label}
             className="w-full h-full object-contain"
-            style={{
-              opacity,
-              transition: `opacity ${FADE_MS}ms ease-in-out`,
-            }}
+            style={transitionStyle}
           />
         </div>
 
@@ -180,7 +294,7 @@ const LiveOutput = () => {
             onClick={() => handleDot(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${
-              i === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
+              i === dotIndex ? "bg-primary" : "bg-muted-foreground/30"
             }`}
           />
         ))}
