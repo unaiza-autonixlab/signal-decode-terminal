@@ -33,7 +33,7 @@ const Index = () => {
         <TerminalWindow>
           <div className="py-8 text-center">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
-              20 Hours of Content Work.<br />Done in 60 Seconds.
+              20 Hours of Content Work.<br />Done in 2 Minutes.
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-5 max-w-xl mx-auto leading-relaxed">
               A done-for-you AI system that generates your clients' monthly content calendars automatically.
@@ -47,7 +47,7 @@ const Index = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           {[
             { target: 20, suffix: "hrs", label: "Saved every week, per client", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "To generate a full month of content", metric: "METRIC_02" },
+            { target: 2, suffix: "min", label: "To generate a full month of content", metric: "METRIC_02" },
             { target: 0, from: 1000, prefix: "$", label: "Extra hires needed to scale", metric: "METRIC_03" },
             { target: 2700, from: 100, prefix: "$", label: "Saved every month on content ops", metric: "METRIC_04" },
           ].map((stat) => (
@@ -112,7 +112,7 @@ const Index = () => {
             <div className="text-[10px] text-terminal-green mb-5 font-bold tracking-widest text-center md:text-left">POST-DEPLOYMENT</div>
             <ul className="space-y-3 text-sm md:text-base">
               {[
-                ["Content planning:", "60 seconds"],
+                ["Content planning:", "2 minutes"],
                 ["Calendar creation:", "Auto-generated Slides"],
                 ["AI usage:", "Full brand memory"],
                 ["New client cost:", "Zero — scales instantly"],
