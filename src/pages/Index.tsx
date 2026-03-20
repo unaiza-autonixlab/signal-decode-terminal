@@ -47,7 +47,7 @@ const Index = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           {[
             { target: 20, suffix: "hrs", label: "Saved every week, per client", metric: "METRIC_01" },
-            { target: 60, suffix: "sec", label: "To generate a full month of content", metric: "METRIC_02" },
+            { target: 2, suffix: "min", label: "To generate a full month of content", metric: "METRIC_02" },
             { target: 0, from: 1000, prefix: "$", label: "Extra hires needed to scale", metric: "METRIC_03" },
             { target: 2700, from: 100, prefix: "$", label: "Saved every month on content ops", metric: "METRIC_04" },
           ].map((stat) => (
