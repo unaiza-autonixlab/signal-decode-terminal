@@ -112,7 +112,7 @@ const Index = () => {
             <div className="text-[10px] text-terminal-green mb-5 font-bold tracking-widest text-center md:text-left">POST-DEPLOYMENT</div>
             <ul className="space-y-3 text-sm md:text-base">
               {[
-                ["Content planning:", "60 seconds"],
+                ["Content planning:", "2 minutes"],
                 ["Calendar creation:", "Auto-generated Slides"],
                 ["AI usage:", "Full brand memory"],
                 ["New client cost:", "Zero — scales instantly"],
