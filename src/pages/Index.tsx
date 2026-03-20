@@ -33,7 +33,7 @@ const Index = () => {
         <TerminalWindow>
           <div className="py-8 text-center">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tight">
-              20 Hours of Content Work.<br />Done in 60 Seconds.
+              20 Hours of Content Work.<br />Done in 2 Minutes.
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-5 max-w-xl mx-auto leading-relaxed">
               A done-for-you AI system that generates your clients' monthly content calendars automatically.
